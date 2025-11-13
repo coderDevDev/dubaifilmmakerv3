@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Mirrored from posterco.tv/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Oct 2025 13:34:46 GMT -->
-  <!-- Added by HTTrack --><meta
-    http-equiv="content-type"
-    content="text/html;charset=UTF-8"
-  /><!-- /Added by HTTrack -->
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -69,23 +65,23 @@
     />
 
     <title>DubaiFilmMaker – Homepage</title>
-    
+
     <style>
       /* Fix video thumbnail aspect ratio - prevent squishing */
-      .bloc-projects-listing .box--work__video.video-wrapper.has-poster img.video-img-poster {
+      .bloc-projects-listing
+        .box--work__video.video-wrapper.has-poster
+        img.video-img-poster {
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
         object-position: center !important;
       }
-      
+
       /* Ensure video wrapper maintains proper dimensions */
       .bloc-projects-listing .box--work__video.video-wrapper {
         position: relative !important;
         overflow: hidden !important;
       }
-      
-
     </style>
   </head>
   <body class="template-homepage">
@@ -530,11 +526,6 @@
               <div class="bloc-projects-listing">
                 <ul id="works" class="list list--works">
                   <!-- Projects will be loaded from JSON -->
-
-
-
-
-
                 </ul>
               </div>
             </div>
@@ -547,31 +538,31 @@
 
     <script src="assets/dist/build.min.js"></script>
     <script src="assets/js/site-config.js"></script>
-    
+
     <script>
-    // Load and render projects from JSON on index page
-    async function loadIndexProjects() {
-      try {
-        console.log('Loading projects for index page...');
-        const response = await fetch('data/project.json');
-        const data = await response.json();
-        renderIndexProjects(data.projects);
-      } catch (error) {
-        console.error('Error loading projects:', error);
-      }
-    }
-
-    function renderIndexProjects(projects) {
-      console.log('Rendering projects for index page...');
-      const worksContainer = document.getElementById('works');
-      
-      // Clear existing content first to avoid duplicates
-      if (worksContainer) {
-        worksContainer.innerHTML = '';
+      // Load and render projects from JSON on index page
+      async function loadIndexProjects() {
+        try {
+          console.log('Loading projects for index page...');
+          const response = await fetch('data/project.json');
+          const data = await response.json();
+          renderIndexProjects(data.projects);
+        } catch (error) {
+          console.error('Error loading projects:', error);
+        }
       }
 
-      projects.forEach(project => {
-        const projectHTML = `
+      function renderIndexProjects(projects) {
+        console.log('Rendering projects for index page...');
+        const worksContainer = document.getElementById('works');
+
+        // Clear existing content first to avoid duplicates
+        if (worksContainer) {
+          worksContainer.innerHTML = '';
+        }
+
+        projects.forEach(project => {
+          const projectHTML = `
           <li class="box box--work" data-cat="${project.data_cat}">
             <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
               <div class="box--work__info">
@@ -603,70 +594,73 @@
             </a>
           </li>
         `;
-        
-        console.log('Adding project:', project.title);
-        worksContainer.innerHTML += projectHTML;
+
+          console.log('Adding project:', project.title);
+          worksContainer.innerHTML += projectHTML;
+        });
+      }
+
+      // Function to check if we need to load projects
+      function checkAndLoadIndexProjects() {
+        const worksContainer = document.getElementById('works');
+        if (worksContainer && worksContainer.children.length === 0) {
+          console.log('Loading index projects...');
+          loadIndexProjects();
+        }
+      }
+
+      // Load projects when the page loads
+      document.addEventListener('DOMContentLoaded', checkAndLoadIndexProjects);
+
+      // Also load projects when the page becomes visible (for client-side routing)
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) {
+          setTimeout(checkAndLoadIndexProjects, 100);
+        }
       });
-    }
 
-    // Function to check if we need to load projects
-    function checkAndLoadIndexProjects() {
-      const worksContainer = document.getElementById('works');
-      if (worksContainer && worksContainer.children.length === 0) {
-        console.log('Loading index projects...');
-        loadIndexProjects();
-      }
-    }
-
-    // Load projects when the page loads
-    document.addEventListener('DOMContentLoaded', checkAndLoadIndexProjects);
-    
-    // Also load projects when the page becomes visible (for client-side routing)
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) {
+      // Load projects when window gains focus (backup for routing)
+      window.addEventListener('focus', function () {
         setTimeout(checkAndLoadIndexProjects, 100);
-      }
-    });
-    
-    // Load projects when window gains focus (backup for routing)
-    window.addEventListener('focus', function() {
-      setTimeout(checkAndLoadIndexProjects, 100);
-    });
-    
-    // Check periodically if we're on index page but no projects loaded
-    setInterval(function() {
-      if (window.location.pathname === '/' || window.location.pathname.includes('index')) {
-        checkAndLoadIndexProjects();
-      }
-    }, 1000);
-    
-    // === WORKS PAGE FUNCTIONALITY ===
-    // Load and render projects for works page
-    async function loadWorksProjects() {
-      try {
-        console.log('Loading projects for works page...');
-        const response = await fetch('data/project.json');
-        const data = await response.json();
-        renderWorksProjects(data.projects);
-      } catch (error) {
-        console.error('Error loading works projects:', error);
-      }
-    }
+      });
 
-    function renderWorksProjects(projects) {
-      console.log('Rendering projects for works page...');
-      const worksContainer = document.getElementById('works-list-project');
-      
-      if (!worksContainer) {
-        console.log('Works container not found');
-        return;
-      }
-      
-      // Clear existing content first to avoid duplicates
-      worksContainer.innerHTML = '';
+      // Check periodically if we're on index page but no projects loaded
+      setInterval(function () {
+        if (
+          window.location.pathname === '/' ||
+          window.location.pathname.includes('index')
+        ) {
+          checkAndLoadIndexProjects();
+        }
+      }, 1000);
 
-      projects.forEach(project => {
-        const projectHTML = `
+      // === WORKS PAGE FUNCTIONALITY ===
+      // Load and render projects for works page
+      async function loadWorksProjects() {
+        try {
+          console.log('Loading projects for works page...');
+          const response = await fetch('data/project.json');
+          const data = await response.json();
+          renderWorksProjects(data.projects);
+        } catch (error) {
+          console.error('Error loading works projects:', error);
+        }
+      }
+
+      function renderWorksProjects(projects) {
+        console.log('Rendering projects for works page...');
+        const worksContainer = document.getElementById('works-list-project');
+
+        if (!worksContainer) {
+          console.log('Works container not found');
+          return;
+        }
+
+        // Clear existing content first to avoid duplicates
+        worksContainer.innerHTML = '';
+
+        projects.forEach(project => {
+          const projectHTML = `
           <li class="box box--work" data-cat="${project.data_cat}">
             <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
               <div class="box--work__info">
@@ -698,134 +692,152 @@
             </a>
           </li>
         `;
-        
-        console.log('Adding works project:', project.title);
-        worksContainer.innerHTML += projectHTML;
-      });
-    }
 
-    // Function to check if we need to load works projects
-    function checkAndLoadWorksProjects() {
-      console.log('checkAndLoadWorksProjects called, current path:', window.location.pathname);
-      const worksContainer = document.getElementById('works-list-project');
-      console.log('Works container found:', !!worksContainer);
-      console.log('Container children count:', worksContainer ? worksContainer.children.length : 'N/A');
-      
-      if (worksContainer && worksContainer.children.length === 0) {
-        console.log('Loading works projects...');
-        loadWorksProjects();
-      } else if (worksContainer) {
-        console.log('Works projects already loaded');
+          console.log('Adding works project:', project.title);
+          worksContainer.innerHTML += projectHTML;
+        });
       }
-    }
 
-    // Check for both pages periodically
-    setInterval(function() {
-      if (window.location.pathname.includes('/works')) {
-        checkAndLoadWorksProjects();
-      }
-    }, 1000);
-    
-    // Listen for route changes
-    let lastPath = window.location.pathname;
-    setInterval(function() {
-      if (window.location.pathname !== lastPath) {
-        console.log('Route changed from', lastPath, 'to', window.location.pathname);
-        lastPath = window.location.pathname;
-        
-        // Load appropriate projects based on current route
-        setTimeout(function() {
-          if (window.location.pathname.includes('/works')) {
-            checkAndLoadWorksProjects();
-          } else if (window.location.pathname === '/' || window.location.pathname.includes('index')) {
-            checkAndLoadIndexProjects();
-          }
-        }, 200);
-      }
-    }, 100);
-    
-    // Expose works functions globally for debugging
-    window.loadWorksProjects = loadWorksProjects;
-    window.checkAndLoadWorksProjects = checkAndLoadWorksProjects;
-    
-    // === ABOUT PAGE FUNCTIONALITY ===
-    async function loadAboutContent() {
-      try {
-        console.log('Loading about page content...');
-        const response = await fetch('data/about.json');
-        const data = await response.json();
-        renderAboutContent(data.page);
-      } catch (error) {
-        console.error('Error loading about content:', error);
-      }
-    }
+      // Function to check if we need to load works projects
+      function checkAndLoadWorksProjects() {
+        console.log(
+          'checkAndLoadWorksProjects called, current path:',
+          window.location.pathname
+        );
+        const worksContainer = document.getElementById('works-list-project');
+        console.log('Works container found:', !!worksContainer);
+        console.log(
+          'Container children count:',
+          worksContainer ? worksContainer.children.length : 'N/A'
+        );
 
-    function renderAboutContent(pageData) {
-      console.log('Rendering about page content...');
-      const aboutBox = document.querySelector('.box--about');
-      const aboutButton = document.querySelector('.player-link');
-      
-      if (aboutBox && pageData.content) {
-        aboutBox.innerHTML = pageData.content.main_text;
+        if (worksContainer && worksContainer.children.length === 0) {
+          console.log('Loading works projects...');
+          loadWorksProjects();
+        } else if (worksContainer) {
+          console.log('Works projects already loaded');
+        }
       }
-      
-      if (aboutButton && pageData.content.video_button) {
-        aboutButton.innerHTML = `<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      // Check for both pages periodically
+      setInterval(function () {
+        if (window.location.pathname.includes('/works')) {
+          checkAndLoadWorksProjects();
+        }
+      }, 1000);
+
+      // Listen for route changes
+      let lastPath = window.location.pathname;
+      setInterval(function () {
+        if (window.location.pathname !== lastPath) {
+          console.log(
+            'Route changed from',
+            lastPath,
+            'to',
+            window.location.pathname
+          );
+          lastPath = window.location.pathname;
+
+          // Load appropriate projects based on current route
+          setTimeout(function () {
+            if (window.location.pathname.includes('/works')) {
+              checkAndLoadWorksProjects();
+            } else if (
+              window.location.pathname === '/' ||
+              window.location.pathname.includes('index')
+            ) {
+              checkAndLoadIndexProjects();
+            }
+          }, 200);
+        }
+      }, 100);
+
+      // Expose works functions globally for debugging
+      window.loadWorksProjects = loadWorksProjects;
+      window.checkAndLoadWorksProjects = checkAndLoadWorksProjects;
+
+      // === ABOUT PAGE FUNCTIONALITY ===
+      async function loadAboutContent() {
+        try {
+          console.log('Loading about page content...');
+          const response = await fetch('data/about.json');
+          const data = await response.json();
+          renderAboutContent(data.page);
+        } catch (error) {
+          console.error('Error loading about content:', error);
+        }
+      }
+
+      function renderAboutContent(pageData) {
+        console.log('Rendering about page content...');
+        const aboutBox = document.querySelector('.box--about');
+        const aboutButton = document.querySelector('.player-link');
+
+        if (aboutBox && pageData.content) {
+          aboutBox.innerHTML = pageData.content.main_text;
+        }
+
+        if (aboutButton && pageData.content.video_button) {
+          aboutButton.innerHTML = `<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.25 4.56699C7.58333 4.75944 7.58333 5.24056 7.25 5.43301L1.25 8.89711C0.916667 9.08956 0.500001 8.849 0.500001 8.4641L0.500001 1.5359C0.500001 1.151 0.916668 0.910436 1.25 1.10289L7.25 4.56699Z" stroke="currentColor"/>
 </svg> ${pageData.content.video_button.text}`;
+        }
       }
-    }
 
-    function checkAndLoadAboutContent() {
-      const aboutBox = document.querySelector('.box--about');
-      if (aboutBox && window.location.pathname.includes('/about')) {
-        console.log('Loading about content...');
-        loadAboutContent();
+      function checkAndLoadAboutContent() {
+        const aboutBox = document.querySelector('.box--about');
+        if (aboutBox && window.location.pathname.includes('/about')) {
+          console.log('Loading about content...');
+          loadAboutContent();
+        }
       }
-    }
-    
-    // === CONTACT PAGE FUNCTIONALITY ===
-    async function loadContactContent() {
-      try {
-        console.log('Loading contact page content...');
-        const response = await fetch('data/contact.json');
-        const data = await response.json();
-        renderContactContent(data.page);
-      } catch (error) {
-        console.error('Error loading contact content:', error);
-      }
-    }
 
-    function renderContactContent(pageData) {
-      console.log('Rendering contact page content...');
-      const staffList = document.querySelector('.list--staff');
-      const addressBox = document.querySelector('.box--address');
-      
-      // Render staff list
-      if (staffList && pageData.staff) {
-        staffList.innerHTML = '';
-        
-        pageData.staff.forEach(department => {
-          const departmentHTML = `
+      // === CONTACT PAGE FUNCTIONALITY ===
+      async function loadContactContent() {
+        try {
+          console.log('Loading contact page content...');
+          const response = await fetch('data/contact.json');
+          const data = await response.json();
+          renderContactContent(data.page);
+        } catch (error) {
+          console.error('Error loading contact content:', error);
+        }
+      }
+
+      function renderContactContent(pageData) {
+        console.log('Rendering contact page content...');
+        const staffList = document.querySelector('.list--staff');
+        const addressBox = document.querySelector('.box--address');
+
+        // Render staff list
+        if (staffList && pageData.staff) {
+          staffList.innerHTML = '';
+
+          pageData.staff.forEach(department => {
+            const departmentHTML = `
             <li>
               <h2>${department.title}</h2>
               <ul class="list list--members">
-                ${department.members.map(member => `
+                ${department.members
+                  .map(
+                    member => `
                   <li>
                     ${member.name}<br/>
                     <a class="lnk lnk--through" href="mailto:${member.email}">${member.email}</a>
                   </li>
-                `).join('')}
+                `
+                  )
+                  .join('')}
               </ul>
             </li>
           `;
-          staffList.innerHTML += departmentHTML;
-        });
-      }
-      
-      // Render address information
-      if (addressBox && pageData.address) {
-        const addressHTML = `
+            staffList.innerHTML += departmentHTML;
+          });
+        }
+
+        // Render address information
+        if (addressBox && pageData.address) {
+          const addressHTML = `
           <p>${pageData.address.street}<br />
           ${pageData.address.city}</p>
           <p>
@@ -833,47 +845,53 @@
             E&nbsp;: <a class="lnk lnk--through" href="mailto:${pageData.address.email}">${pageData.address.email}</a>
           </p>
         `;
-        addressBox.innerHTML = addressHTML;
+          addressBox.innerHTML = addressHTML;
+        }
       }
-    }
 
-    function checkAndLoadContactContent() {
-      const staffList = document.querySelector('.list--staff');
-      if (staffList && window.location.pathname.includes('/contact')) {
-        console.log('Loading contact content...');
-        loadContactContent();
+      function checkAndLoadContactContent() {
+        const staffList = document.querySelector('.list--staff');
+        if (staffList && window.location.pathname.includes('/contact')) {
+          console.log('Loading contact content...');
+          loadContactContent();
+        }
       }
-    }
-    
-    // Update the main route change listener to handle all pages
-    let lastPath2 = window.location.pathname;
-    setInterval(function() {
-      if (window.location.pathname !== lastPath2) {
-        console.log('Route changed from', lastPath2, 'to', window.location.pathname);
-        lastPath2 = window.location.pathname;
-        
-        // Load appropriate content based on current route
-        setTimeout(function() {
-          if (window.location.pathname.includes('/works')) {
-            checkAndLoadWorksProjects();
-          } else if (window.location.pathname === '/' || window.location.pathname.includes('index')) {
-            checkAndLoadIndexProjects();
-          } else if (window.location.pathname.includes('/about')) {
-            checkAndLoadAboutContent();
-          } else if (window.location.pathname.includes('/contact')) {
-            checkAndLoadContactContent();
-          }
-        }, 200);
-      }
-    }, 100);
-    
-    // Expose all functions globally for debugging
-    window.loadAboutContent = loadAboutContent;
-    window.loadContactContent = loadContactContent;
-    window.checkAndLoadAboutContent = checkAndLoadAboutContent;
-    window.checkAndLoadContactContent = checkAndLoadContactContent;
-  </script>
+
+      // Update the main route change listener to handle all pages
+      let lastPath2 = window.location.pathname;
+      setInterval(function () {
+        if (window.location.pathname !== lastPath2) {
+          console.log(
+            'Route changed from',
+            lastPath2,
+            'to',
+            window.location.pathname
+          );
+          lastPath2 = window.location.pathname;
+
+          // Load appropriate content based on current route
+          setTimeout(function () {
+            if (window.location.pathname.includes('/works')) {
+              checkAndLoadWorksProjects();
+            } else if (
+              window.location.pathname === '/' ||
+              window.location.pathname.includes('index')
+            ) {
+              checkAndLoadIndexProjects();
+            } else if (window.location.pathname.includes('/about')) {
+              checkAndLoadAboutContent();
+            } else if (window.location.pathname.includes('/contact')) {
+              checkAndLoadContactContent();
+            }
+          }, 200);
+        }
+      }, 100);
+
+      // Expose all functions globally for debugging
+      window.loadAboutContent = loadAboutContent;
+      window.loadContactContent = loadContactContent;
+      window.checkAndLoadAboutContent = checkAndLoadAboutContent;
+      window.checkAndLoadContactContent = checkAndLoadContactContent;
+    </script>
   </body>
-
-  
 </html>
