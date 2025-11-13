@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	
+<!-- Mirrored from posterco.tv/contact by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Oct 2025 13:35:30 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+	  <link rel="preconnect" href="https://fonts.googleapis.com/">
+	  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono&amp;display=swap" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@700&amp;display=swap" rel="stylesheet">
+
+	  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png%20favicon-32x32.html">
+		<link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png%20favicon-16x16.html">
+		<link rel="manifest" href="assets/favicons/site.webmanifest">
+		<link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#000000">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="theme-color" content="#ffffff">
+	  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="../cdn.plyr.io/3.7.8/plyr.css" />
+
+	  <link href="assets/dist/build.min.css" rel="stylesheet">
+
+		<link rel="canonical" href="contact.html" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Poster – Contact" />
+		<meta property="og:site_name" content="Poster" />
+		<meta property="og:url" content="contact.html" />
+		<meta name="twitter:title" content="Poster – Contact" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+			  <meta name="description" content="Post-Production company based in the heart of Paris, dedicated to audiovisual production, advertisement, digital content, music video feature films & documentaries." />
+		<meta property="og:description" content="Post-Production company based in the heart of Paris, dedicated to audiovisual production, advertisement, digital content, music video feature films & documentaries." />
+		
+	  <title>Poster – Contact</title>
+
+	</head>
+	<body class="template-contact">
+
+	<main class="main">
+		<div class="app-container  body-light">
+			<div class="app-container-inner">
+				  <header class="header">
+    <div class="header__nav">
+      <a href="index.html" data-navigo class="logo-link">
+                  <img class="header__logo" src="assets/img/dubaifilmmaker-logo-dark-bolder.svg" alt="Poster">
+              </a>
+      <a href="#main_menu" class="btn btn--menu">
+        <span>menu.</span>
+      </a>
+    </div>
+
+    <div class="header__navigations-wrapper">
+      <nav id="main_menu" class="header__subnav">
+  <ul>
+        <li data-slug="homepage">
+      <a 
+        data-navigo
+        data-slug="homepage"
+         
+         
+        href="#"
+      >
+          Homepage      </a>
+    </li>
+          <li data-slug="works">
+      <a 
+        data-navigo
+        data-slug="works"
+         
+         
+        href="works"
+      >
+          Works      </a>
+    </li>
+          <li data-slug="about">
+      <a 
+        data-navigo
+        data-slug="about"
+         
+         
+        href="about"
+      >
+          About      </a>
+    </li>
+          <li data-slug="contact">
+      <a 
+        data-navigo
+        data-slug="contact"
+        aria-current="page" 
+         
+        href="contact"
+      >
+          Contact      </a>
+    </li>
+        </ul>
+</nav>      
+          </div>
+  </header>
+					<div class="page-inner-content">
+
+	<h1 class="hidden">Contact</h1>
+
+	<div class="contact-inner-wrapper">
+				<div class="box box--staff">
+			<ul class="list list--staff">
+								<!-- Staff content will be loaded from JSON -->
+								<li>
+									<h2>Loading staff...</h2>
+								</li>
+							</ul>
+		</div>
+		
+		<div class="box box--address">
+      			  <!-- Address content will be loaded from JSON -->
+      			  <p>Loading address...</p>
+		</div>
+	</div>
+
+			
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!--  -->
+
+	<script src="assets/dist/build.min.js"></script>
+
+<script>
+// Load contact content when accessing contact.html directly
+async function loadContactContent() {
+  try {
+    console.log('Loading contact page content...');
+    const response = await fetch('data/contact.json');
+    const data = await response.json();
+    renderContactContent(data.page);
+  } catch (error) {
+    console.error('Error loading contact content:', error);
+  }
+}
+
+function renderContactContent(pageData) {
+  console.log('Rendering contact page content...');
+  const staffList = document.querySelector('.list--staff');
+  const addressBox = document.querySelector('.box--address');
+  
+  // Render staff list
+  if (staffList && pageData.staff) {
+    staffList.innerHTML = '';
+    
+    pageData.staff.forEach(department => {
+      const departmentHTML = `
+        <li>
+          <h2>${department.title}</h2>
+          <ul class="list list--members">
+            ${department.members.map(member => `
+              <li>
+                ${member.name}<br/>
+                <a class="lnk lnk--through" href="mailto:${member.email}">${member.email}</a>
+              </li>
+            `).join('')}
+          </ul>
+        </li>
+      `;
+      staffList.innerHTML += departmentHTML;
+    });
+  }
+  
+  // Render address information
+  if (addressBox && pageData.address) {
+    const addressHTML = `
+      <p>${pageData.address.street}<br />
+      ${pageData.address.city}</p>
+      <p>
+        T&nbsp;: <a class="lnk lnk--through" href="tel:${pageData.address.phone}">${pageData.address.phone}</a><br/>
+        E&nbsp;: <a class="lnk lnk--through" href="mailto:${pageData.address.email}">${pageData.address.email}</a>
+      </p>
+    `;
+    addressBox.innerHTML = addressHTML;
+  }
+}
+
+// Load content when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Contact page loaded directly');
+  loadContactContent();
+});
+
+// Also try loading immediately
+setTimeout(loadContactContent, 100);
+</script>
+
+</body>
+
+<!-- Mirrored from posterco.tv/contact by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Oct 2025 13:35:27 GMT -->
+
+</html>

@@ -1,0 +1,166 @@
+Posterco.tv Website - Technical Analysis
+Overview
+This is a post-production company portfolio website mirrored using HTTrack Website Copier. The site showcases audiovisual production work for luxury brands, commercials, music videos, and feature films.
+
+🎨 Design & Typography
+Fonts
+Primary Font: Azeret Mono (Google Fonts)
+Regular weight (400) - body text, navigation
+Bold weight (700) - menu items, emphasized text
+Characteristics: Monospace, modern, technical aesthetic
+Secondary Font: Monument Extended Bold (Custom)
+Weight: 700
+Formats: EOT, WOFF, WOFF2, TTF, SVG
+Usage: Headlines, project credits
+Font files located: assets/fonts/monument-extended-bold.*
+🎯 Key Features
+Homepage (index.html)
+Lottie animation intro (
+intro-animation.json
+) - Animated logo reveal
+Featured projects slider with 7 projects
+Custom video cursor following mouse movement
+Project counter (1/7 display)
+Auto-playing video backgrounds (Vimeo hosted)
+Category filtering: Featured Film, Commercials, Music Videos
+Lazy-loaded media for performance optimization
+About Page (about.html)
+Company description and mission
+Office gallery with 4 images
+Video reel popup (Poster reel 2025)
+Light theme variant (body-light class)
+Works Page (works.html)
+Grid layout of all projects
+Category filter system (data-cat attributes)
+Video hover previews with poster images
+Project information cards
+Contact Page (contact.html)
+Team member directory
+Email links (encoded for spam protection)
+Office address: 72 bld de Sébastopol, Paris 75003
+Phone contact
+💻 Technical Stack
+Core Technologies
+HTML5 - Semantic markup
+CSS3 - Modern styling with custom properties
+JavaScript - Custom interactions (build.min.js - 519KB)
+Plyr.io (v3.7.8) - Video player library
+Animation Libraries
+Lottie - JSON-based animations (intro logo animation)
+Custom friction-based cursor animations (data-friction attributes)
+Navigation
+Navigo.js - Client-side routing (data-navigo attributes)
+Hash-based navigation for smooth page transitions
+🎬 Animations & Interactions
+Custom Cursor System
+html
+<div class="cursor-player-animated js-cursor-player-animated">
+  <div class="mooving-elements players-wrapper is-player" data-friction="7">
+Friction-based movement (values: 1-7)
+Multiple cursor states:
+cursor-text-animated - Text display cursor
+cursor-player-animated - Video preview cursor
+Arrow indicators for clickable elements
+Video Interactions
+Lazy loading: data-src attributes with lazy-media class
+Responsive srcsets: 300w and 800w variants
+Auto-play on hover via js-video class
+Loop and muted by default
+Vimeo progressive downloads (720p/1080p)
+Homepage Slider
+.js-change-video class triggers video switching
+.is-active state management
+Animated timeline progress bar
+Synchronized video player cursor
+CSS Animations
+CSS transitions and transforms (minified in build.min.css)
+Custom keyframe animations
+Color scheme:
+--bg-color: #000 (black)
+--bg-light-color: #e7e7e7 (light gray)
+--light-color: #fff (white)
+📁 Asset Structure
+Assets Directory
+assets/
+├── css/
+│   ├── templates/about.css
+│   └── dist/build.min.css (26KB)
+├── dist/
+│   ├── build.min.css
+│   └── build.min.js (519KB)
+├── favicons/
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── safari-pinned-tab.svg
+│   └── site.webmanifest
+├── fonts/
+│   └── monument-extended-bold.* (multiple formats)
+└── img/
+    ├── cursor.svg
+    ├── intro-animation.json (14KB Lottie file)
+    ├── poster-logo-bolder.svg (light theme)
+    └── poster-logo-dark-bolder.svg (dark theme)
+🎨 CSS Architecture
+CSS Custom Properties (Variables)
+css
+:root {
+  --promo-banner-height: 40px;
+  --promo-banner-mobile-height: 64px;
+  --bg-color: #000;
+  --bg-light-color: #e7e7e7;
+  --light-color: #fff;
+}
+Layout Classes
+.app-container - Main wrapper
+.page-inner-content - Content area
+.box--home, .box--work, .box--about - Section containers
+.video-wrapper - Video container with aspect ratio
+.lazy-media - Lazy loading trigger
+Theme Variants
+.template-homepage - Dark theme
+.template-about, .template-contact - Light theme with body-light
+.template-projects - Works page dark theme
+🔧 JavaScript Features
+Class-based Selectors
+.js-filter-cat - Category filtering
+.js-change-video - Video switching
+.js-has-cursor-text - Custom cursor activation
+.js-video - Video control
+.js-main-video - Main video player
+.js-open-popin-video - Video popup trigger
+.js-cursor-player-animated - Animated cursor wrapper
+Data Attributes
+data-navigo - Client-side routing
+data-slug - Page identification
+data-cat - Project categorization
+data-friction - Animation physics
+data-animation - Lottie animation path
+data-src / data-srcset - Lazy loading sources
+📱 Responsive Design
+Mobile viewport meta tag
+Responsive images with srcset (300w, 800w breakpoints)
+Mobile-specific controls: .box--home__buttons-mobile
+Arrow navigation for mobile sliders
+Adaptive layouts for different screen sizes
+🎥 Video Hosting
+All videos hosted on Vimeo CDN with:
+
+Progressive streaming
+Multiple quality options (720p, 1080p)
+OAuth token authentication
+External playback optimization
+⚡ Performance Optimizations
+Lazy loading - Images and videos load on demand
+Minified assets - Compressed CSS and JS
+Font preloading - Google Fonts with preconnect
+Progressive video - Streaming delivery
+Responsive images - Multiple sizes via srcset
+SVG graphics - Scalable icons and logos
+🎭 Notable Design Patterns
+Minimalist aesthetic - Black/white color scheme
+Monospace typography - Technical, contemporary feel
+Large format video - Full-screen immersive experiences
+Friction-based animations - Natural, physics-inspired motion
+Hidden cursor replacements - Custom interactive elements
+Grid-based layouts - Clean project organization

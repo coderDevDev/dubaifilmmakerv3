@@ -1,0 +1,86 @@
+import { Project } from '@/types'
+
+// First 7 projects match exactly the original homepage featured slider
+export const projects: Project[] = [
+  {
+    slug: 'veuve-clicquot-x-jacquemus',
+    title: 'Veuve Clicquot x Jacquemus',
+    director: 'Jonas Lindstroem',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1117423122/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=ca2f821a9f70cfac6cad54c7fbf2e150032578e63442cbcdedb2634910e6c9b4',
+    posterUrl: 'https://posterco.tv/media/pages/works/veuve-clicquot-x-jacquemus/f467980f83-1757508080/vlcsnap-2025-09-09-17h13m46s724.jpg',
+  },
+  {
+    slug: 'dior-sauvage-2025',
+    title: 'Dior Sauvage',
+    director: 'Jean-Baptiste Mondino',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1115887892/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=3c1f344ded2ffbd4257e7f9cba56f778a638504b8837a5b7bd9225297fe868bc',
+    posterUrl: 'https://posterco.tv/media/pages/works/dior-sauvage-2025/a4ff1365d5-1757003605/poster-jb-mondinoxdior-sauvage-2025.jpg',
+  },
+  {
+    slug: 'miss-dior',
+    title: 'Miss Dior',
+    director: 'Manu Cossu',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1117421162/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=621299972eda80a99176f2119c8bb7d9aa1d00ef3f5798144a2c0d50732de5a5',
+    posterUrl: 'https://posterco.tv/media/pages/works/miss-dior/3aff5631b3-1757508014/vlcsnap-2025-09-08-18h06m11s355.jpg',
+  },
+  {
+    slug: 'kenzo',
+    title: 'Eau Pure',
+    director: 'Manu Cossu',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1092256830/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=aef92d5899a60fd514bebf35f86cb01466eb26ce6702fae05f92b7f915db1262',
+    posterUrl: 'https://posterco.tv/media/pages/works/kenzo/b9db050d4a-1749595358/vlcsnap-2025-06-11-00h23m53s748-min.png',
+  },
+  {
+    slug: 'vacheron-constantin',
+    title: 'Conquest of Space',
+    director: 'Arnaud Bresson',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1093092700/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=225d96136f12cb5672a0abebfbebdd69914a3c23fe3985f08b03f0493afa78fc',
+    posterUrl: 'https://posterco.tv/media/pages/works/vacheron-constantin/4f803848c4-1749819532/vlcsnap-2025-06-13-14h56m59s507-min.png',
+  },
+  {
+    slug: 'federation-francaise-de-tennis',
+    title: 'FFT',
+    director: 'Only at Roland Garros',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1092435994/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=b970c2f226694ffc684fd38c56fd66df0762d42550ed62af1719cfe36c8654e5',
+    posterUrl: 'https://posterco.tv/media/pages/works/federation-francaise-de-tennis/d789e2846e-1749643904/vlcsnap-2025-06-11-14h09m58s175-min.png',
+  },
+  {
+    slug: 'rabanne',
+    title: 'From Sunset to Sunrise',
+    director: 'Manu Cossu',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1092250725/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=f5b0c83ca1cdfc0b7e7c7d5a591584fb7d209d424d536de1f158cf96380bad2a',
+    posterUrl: 'https://posterco.tv/media/pages/works/rabanne/b351601955-1749594938/vlcsnap-2025-06-04-21h14m09s721-min.png',
+  },
+  // Additional projects for works page
+  {
+    slug: 'l-amour-c-est-surcote',
+    title: "L'Amour c'est Surcoté",
+    director: 'Mourad Winter',
+    category: 'Featured film',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1078699070/rendition/720p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=778d89ce3ea76f1e4512519b4195b098c11972b58e8fa69f8a80a86589f1d433',
+    posterUrl: 'https://posterco.tv/media/pages/works/l-amour-c-est-surcote/1e96ff9b6a-1745593279/lamour-cest-surcote-poster.png',
+  },
+  {
+    slug: 'banger',
+    title: 'Banger',
+    director: 'So Me',
+    category: 'Featured film',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1070303646/rendition/720p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=d2eca2f8fe4ea4afda66765e1590a2ba6ca1a888cde2eef8521d7aa62c51ad62',
+    posterUrl: 'https://posterco.tv/media/pages/works/banger/072547454d-1743164113/so-me-banger-trailer-poster-min.png',
+  },
+  {
+    slug: 'orient-express',
+    title: 'Orient Express',
+    director: 'Jonas Lindstroem',
+    category: 'Commercials',
+    videoUrl: 'https://player.vimeo.com/progressive_redirect/playback/1071346005/rendition/720p/file.mp4?loc=external&oauth2_token_id=1774001646&signature=a51ca050c63d9618d15ae13559689024eb42976ebed85e375e5133c6758ecb34',
+    posterUrl: 'https://posterco.tv/media/pages/works/orient-express/4644bc31a1-1743500716/orient-express-poster.png',
+  },
+]

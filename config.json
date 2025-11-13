@@ -1,0 +1,58 @@
+{
+  "site": {
+    "mode": "posterco",
+    "description": "Choose which site content to display: 'dubaifilmmaker' or 'posterco'",
+    "options": ["dubaifilmmaker", "posterco"]
+  },
+  "header": {
+    "logo": {
+      "position": "right",
+      "description": "Logo position in header: 'left', 'center', or 'right'",
+      "options": ["left", "center", "right"]
+    }
+  },
+  "features": {
+    "introAnimation": {
+      "enabled": false,
+      "description": "Show/hide the intro animation (bloc-intro)"
+    },
+    "navigation": {
+      "worksPage": {
+        "enabled": true,
+        "description": "Enable/disable Works navigation link"
+      },
+      "aboutPage": {
+        "enabled": true,
+        "description": "Enable/disable About navigation link"
+      },
+      "contactPage": {
+        "enabled": true,
+        "description": "Enable/disable Contact navigation link"
+      }
+    },
+    "projectsNav": {
+      "enabled": true,
+      "description": "Enable/disable projects category navigation (Featured film, Commercials, etc.)"
+    },
+    "homeBoxLinks": {
+      "videoClickable": {
+        "enabled": true,
+        "description": "Enable/disable clicking on videos in box--home to open project page"
+      },
+      "mobileViewProject": {
+        "enabled": true,
+        "description": "Enable/disable 'view project' button on mobile in box--home"
+      }
+    },
+    "projectsListing": {
+      "clickable": {
+        "enabled": true,
+        "description": "Enable/disable clicking on projects in bloc-projects-listing"
+      }
+    }
+  },
+  "demo": {
+    "mode": true,
+    "description": "When true, disables most interactive features for client presentation"
+  }
+}

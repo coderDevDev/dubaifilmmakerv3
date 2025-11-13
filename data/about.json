@@ -1,0 +1,13 @@
+{
+  "page": {
+    "title": "About",
+    "description": "Located in the heart of Dubai, our offices are dedicated to audiovisual production.",
+    "content": {
+      "main_text": "Located in the heart of Dubai, our offices are dedicated to audiovisual production, where the expertise and commitment of our teams enable us to bring a wide variety of projects to life: multi-platform advertisements, digital content, music videos, feature films, documentaries, and live performance recordings.<br /><br />Every project is a unique journey for us. We strive to assemble the most suitable team to meet our clients' specific expectations, combining in-house talent with freelance experts. With an approach that is both meticulous and human-centered, we ensure impeccable quality at every stage.<br /><br />Beyond production, we oversee the entire creative process. From preproduction to final delivery, we adapt to the unique characteristics of each project to offer personalized and attentive support.",
+      "video_button": {
+        "text": "view DubaiFilmMaker reel 2025",
+        "video_url": "https://video.wixstatic.com/video/8c2c22_981846f43f714f73845393b8c1d66a5f/720p/mp4/file.mp4"
+      }
+    }
+  }
+}
