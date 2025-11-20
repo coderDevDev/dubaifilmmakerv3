@@ -82,7 +82,144 @@
         position: relative !important;
         overflow: hidden !important;
       }
+
+      /* Header styles loaded from data/header.json - prevent FOUC */
+      .header__logo {
+        object-fit: contain !important;
+        height: auto !important;
+        opacity: 0;
+        transition: opacity 0.15s ease-in;
+      }
+      
+      .header__logo.loaded {
+        opacity: 1;
+      }
     </style>
+    
+    <!-- Critical header CSS - loads synchronously to prevent FOUC -->
+    <script>
+      (function() {
+        // Synchronous XHR to load config before page renders
+        try {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/data/header.json', false); // false = synchronous
+          xhr.send();
+          
+          if (xhr.status === 200) {
+            var config = JSON.parse(xhr.responseText);
+            var preset = config.activePreset || 'default';
+            var presetConfig = config.presets[preset];
+            
+            if (presetConfig) {
+              // Store for later use by site-config.js
+              window.__headerConfig = config;
+              window.__headerPreset = presetConfig;
+              window.__headerPresetName = preset;
+              
+              // Inject critical CSS immediately
+              var style = document.createElement('style');
+              style.id = 'header-critical-css';
+              style.textContent = generateHeaderCSS(presetConfig);
+              document.head.appendChild(style);
+              
+              // Update logo src immediately when DOM is ready
+              if (presetConfig.logo && presetConfig.logo.src) {
+                document.addEventListener('DOMContentLoaded', function() {
+                  var logos = document.querySelectorAll('.header__logo');
+                  logos.forEach(function(logo) {
+                    logo.src = presetConfig.logo.src;
+                    if (presetConfig.logo.alt) {
+                      logo.alt = presetConfig.logo.alt;
+                    }
+                    // Show logo after src is updated
+                    logo.classList.add('loaded');
+                  });
+                });
+              }
+              
+              console.log('✓ Critical header CSS loaded synchronously:', preset);
+            }
+          }
+        } catch (e) {
+          console.warn('Could not load header config synchronously:', e);
+        }
+        
+        function generateHeaderCSS(preset) {
+          var css = '';
+          
+          // Mobile styles
+          if (preset.mobile) {
+            css += '@media (max-width: 767px) {';
+            css += 'html body .app-container .header .header__nav {';
+            css += 'display: flex !important;';
+            css += 'align-items: ' + preset.mobile.headerNav.alignItems + ' !important;';
+            css += 'padding: ' + preset.mobile.headerNav.padding + ' !important;';
+            css += 'min-height: ' + preset.mobile.headerNav.minHeight + ' !important;';
+            if (preset.mobile.headerNav.flexDirection) css += 'flex-direction: ' + preset.mobile.headerNav.flexDirection + ' !important;';
+            if (preset.mobile.headerNav.justifyContent) css += 'justify-content: ' + preset.mobile.headerNav.justifyContent + ' !important;';
+            if (preset.mobile.headerNav.gap) css += 'gap: ' + preset.mobile.headerNav.gap + ' !important;';
+            if (preset.mobile.headerNav.width) css += 'width: ' + preset.mobile.headerNav.width + ' !important;';
+            css += '}';
+            
+            css += 'html body .app-container .header .header__nav .logo-link {';
+            css += 'display: flex !important; align-items: center !important;';
+            if (preset.mobile.logoLink.maxWidth) css += 'max-width: ' + preset.mobile.logoLink.maxWidth + ' !important;';
+            if (preset.mobile.logoLink.flex) css += 'flex: ' + preset.mobile.logoLink.flex + ' !important;';
+            if (preset.mobile.logoLink.flexShrink) css += 'flex-shrink: ' + preset.mobile.logoLink.flexShrink + ' !important;';
+            if (preset.mobile.logoLink.paddingRight) css += 'padding-right: ' + preset.mobile.logoLink.paddingRight + ' !important;';
+            if (preset.mobile.logoLink.width) css += 'width: ' + preset.mobile.logoLink.width + ' !important;';
+            if (preset.mobile.logoLink.margin) css += 'margin: ' + preset.mobile.logoLink.margin + ' !important;';
+            css += '}';
+            
+            css += 'html body .app-container .header .header__nav .logo-link .header__logo {';
+            css += 'display: block !important;';
+            css += 'max-height: ' + preset.mobile.logo.maxHeight + ' !important;';
+            css += 'max-width: ' + preset.mobile.logo.maxWidth + ' !important;';
+            css += 'width: ' + preset.mobile.logo.width + ' !important;';
+            css += preset.mobile.logo.margin ? 'margin: ' + preset.mobile.logo.margin + ' !important;' : 'margin: 0 !important;';
+            css += '}';
+            
+            css += 'html body .app-container .header .header__nav .btn--menu { flex-shrink: 0 !important; margin: 0 !important; }';
+            css += '}';
+          }
+          
+          // Desktop styles
+          if (preset.desktop) {
+            css += '@media (min-width: 768px) {';
+            if (preset.desktop.headerNav) {
+              css += 'html body .app-container .header .header__nav {';
+              css += 'display: flex !important;';
+              if (preset.desktop.headerNav.flexDirection) css += 'flex-direction: ' + preset.desktop.headerNav.flexDirection + ' !important;';
+              if (preset.desktop.headerNav.justifyContent) css += 'justify-content: ' + preset.desktop.headerNav.justifyContent + ' !important;';
+              if (preset.desktop.headerNav.gap) css += 'gap: ' + preset.desktop.headerNav.gap + ' !important;';
+              if (preset.desktop.headerNav.alignItems) css += 'align-items: ' + preset.desktop.headerNav.alignItems + ' !important;';
+              if (preset.desktop.headerNav.width) css += 'width: ' + preset.desktop.headerNav.width + ' !important;';
+              if (preset.desktop.headerNav.minHeight) css += 'min-height: ' + preset.desktop.headerNav.minHeight + ' !important;';
+              css += '}';
+            }
+            
+            css += 'html body .app-container .header .header__nav .logo-link .header__logo {';
+            css += 'display: block !important;';
+            css += 'max-height: ' + preset.desktop.logo.maxHeight + ' !important;';
+            css += 'width: ' + preset.desktop.logo.width + ' !important;';
+            if (preset.desktop.logo.margin) css += 'margin: ' + preset.desktop.logo.margin + ' !important;';
+            css += '}';
+            css += '}';
+          }
+          
+          // Extra large styles
+          if (preset.extraLarge) {
+            css += '@media (min-width: 1200px) {';
+            css += 'html body .app-container .header .header__nav .logo-link .header__logo {';
+            css += 'max-height: ' + preset.extraLarge.logo.maxHeight + ' !important;';
+            css += '}';
+            css += '}';
+          }
+          
+          return css;
+        }
+      })();
+    </script>
   </head>
   <body class="template-homepage">
     <main class="main">

@@ -543,6 +543,7 @@ p {
   flex-direction: row;
   gap: 24px;
   pointer-events: auto;
+  
 }
 .header__nav .logo-link {
   width: calc(100% - 100px);

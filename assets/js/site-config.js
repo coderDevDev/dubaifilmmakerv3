@@ -8,6 +8,45 @@
 
   let config = null;
   let projectsData = null;
+  let headerConfig = null;
+
+  // Load header configuration
+  async function loadHeaderConfig() {
+    // Check if config was already loaded synchronously in the head
+    if (window.__headerConfig) {
+      headerConfig = window.__headerConfig;
+      console.log('✓ Header config already loaded (from critical CSS)');
+      return;
+    }
+    
+    try {
+      const response = await fetch('/data/header.json');
+      if (!response.ok) {
+        throw new Error('Header config file not found');
+      }
+      headerConfig = await response.json();
+      console.log('✓ Header config loaded from data/header.json');
+    } catch (error) {
+      console.warn('⚠ Could not load data/header.json, using defaults:', error);
+      // Use default header config if file not found
+      headerConfig = {
+        activePreset: 'default',
+        presets: {
+          default: {
+            name: 'Default Layout',
+            logo: { src: 'assets/img/dubaifilmmaker.svg' },
+            mobile: {
+              headerNav: { alignItems: 'center', padding: '0px 0', minHeight: '40px', flexDirection: 'row' },
+              logoLink: { maxWidth: 'calc(100% - 100px)', flex: '1' },
+              logo: { maxHeight: '80px', maxWidth: '100%', width: 'auto' }
+            },
+            desktop: { logo: { maxHeight: '80px', width: '100%' } },
+            extraLarge: { logo: { maxHeight: '100px' } }
+          }
+        }
+      };
+    }
+  }
 
   // Load projects data
   async function loadProjectsData() {
@@ -32,6 +71,7 @@
       }
       config = await response.json();
       console.log('✓ Site config loaded:', config);
+      await loadHeaderConfig();
       await loadProjectsData();
       applyConfig();
     } catch (error) {
@@ -232,6 +272,235 @@
     // }, 100);
   }
 
+  // Apply header styles from data/header.json
+  function applyHeaderStyles() {
+    if (!headerConfig) {
+      console.warn('⚠ Header config not loaded');
+      return;
+    }
+
+    const preset = headerConfig.activePreset || 'default';
+    const presetConfig = headerConfig.presets?.[preset];
+
+    if (!presetConfig) {
+      console.warn(`⚠ Header preset '${preset}' not found, using default`);
+      return;
+    }
+
+    console.log(`🎨 Applying header preset: ${preset} (${presetConfig.name})`);
+
+    // Update logo source if specified
+    if (presetConfig.logo?.src) {
+      const logoElements = document.querySelectorAll('.header__logo');
+      logoElements.forEach(logo => {
+        logo.src = presetConfig.logo.src;
+        if (presetConfig.logo.alt) {
+          logo.alt = presetConfig.logo.alt;
+        }
+      });
+      console.log(`✓ Logo updated to: ${presetConfig.logo.src}`);
+    }
+
+    // Inject dynamic CSS for header styles
+    injectHeaderCSS(presetConfig);
+  }
+
+  // Inject dynamic CSS for header styles
+  function injectHeaderCSS(presetConfig) {
+    const styleId = 'header-config-styles';
+    let styleElement = document.getElementById(styleId);
+    
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = styleId;
+      document.head.appendChild(styleElement);
+    }
+
+    let css = `
+      /* Universal logo styling - works for any logo variation */
+      .header__logo {
+        object-fit: contain !important;
+        height: auto !important;
+      }
+    `;
+
+    // Mobile styles
+    if (presetConfig.mobile) {
+      css += `
+      /* Mobile header styles */
+      @media (max-width: 767px) {
+        html body .app-container .header .header__nav {
+          display: flex !important;
+          align-items: ${presetConfig.mobile.headerNav.alignItems} !important;
+          padding: ${presetConfig.mobile.headerNav.padding} !important;
+          min-height: ${presetConfig.mobile.headerNav.minHeight} !important;
+          ${presetConfig.mobile.headerNav.flexDirection ? `flex-direction: ${presetConfig.mobile.headerNav.flexDirection} !important;` : ''}
+          ${presetConfig.mobile.headerNav.justifyContent ? `justify-content: ${presetConfig.mobile.headerNav.justifyContent} !important;` : ''}
+          ${presetConfig.mobile.headerNav.gap ? `gap: ${presetConfig.mobile.headerNav.gap} !important;` : ''}
+          ${presetConfig.mobile.headerNav.width ? `width: ${presetConfig.mobile.headerNav.width} !important;` : ''}
+        }
+
+        html body .app-container .header .header__nav .logo-link {
+          display: flex !important;
+          align-items: center !important;
+          ${presetConfig.mobile.logoLink.maxWidth ? `max-width: ${presetConfig.mobile.logoLink.maxWidth} !important;` : ''}
+          ${presetConfig.mobile.logoLink.flex ? `flex: ${presetConfig.mobile.logoLink.flex} !important;` : ''}
+          ${presetConfig.mobile.logoLink.flexShrink ? `flex-shrink: ${presetConfig.mobile.logoLink.flexShrink} !important;` : ''}
+          ${presetConfig.mobile.logoLink.paddingRight ? `padding-right: ${presetConfig.mobile.logoLink.paddingRight} !important;` : ''}
+          ${presetConfig.mobile.logoLink.width ? `width: ${presetConfig.mobile.logoLink.width} !important;` : ''}
+          ${presetConfig.mobile.logoLink.margin ? `margin: ${presetConfig.mobile.logoLink.margin} !important;` : ''}
+        }
+
+        html body .app-container .header .header__nav .logo-link .header__logo {
+          display: block !important;
+          max-height: ${presetConfig.mobile.logo.maxHeight} !important;
+          max-width: ${presetConfig.mobile.logo.maxWidth} !important;
+          width: ${presetConfig.mobile.logo.width} !important;
+          ${presetConfig.mobile.logo.margin ? `margin: ${presetConfig.mobile.logo.margin} !important;` : 'margin: 0 !important;'}
+        }
+
+        html body .app-container .header .header__nav .btn--menu {
+          flex-shrink: 0 !important;
+          ${presetConfig.mobile.menuButton ? `
+          ${presetConfig.mobile.menuButton.width ? `width: ${presetConfig.mobile.menuButton.width} !important;` : ''}
+          ${presetConfig.mobile.menuButton.margin ? `margin: ${presetConfig.mobile.menuButton.margin} !important;` : 'margin: 0 !important;'}
+          ${presetConfig.mobile.menuButton.position ? `position: ${presetConfig.mobile.menuButton.position} !important;` : ''}
+          ` : 'margin: 0 !important;'}
+        }
+        
+        ${presetConfig.mobile.navigationWrapper ? `
+        html body .app-container .header .header__navigations-wrapper {
+          ${presetConfig.mobile.navigationWrapper.left ? `left: ${presetConfig.mobile.navigationWrapper.left} !important;` : ''}
+          ${presetConfig.mobile.navigationWrapper.right ? `right: ${presetConfig.mobile.navigationWrapper.right} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNav ? `
+        html body .app-container .header .header__subnav {
+          ${presetConfig.mobile.subNav.left ? `left: ${presetConfig.mobile.subNav.left} !important;` : ''}
+          ${presetConfig.mobile.subNav.right ? `right: ${presetConfig.mobile.subNav.right} !important;` : ''}
+          ${presetConfig.mobile.subNav.textAlign ? `text-align: ${presetConfig.mobile.subNav.textAlign} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNavUl ? `
+        html body .app-container .header .header__subnav ul {
+          ${presetConfig.mobile.subNavUl.alignItems ? `align-items: ${presetConfig.mobile.subNavUl.alignItems} !important;` : ''}
+          ${presetConfig.mobile.subNavUl.paddingLeft ? `padding-left: ${presetConfig.mobile.subNavUl.paddingLeft} !important;` : ''}
+          ${presetConfig.mobile.subNavUl.paddingRight ? `padding-right: ${presetConfig.mobile.subNavUl.paddingRight} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNavLi ? `
+        html body .app-container .header .header__subnav li {
+          ${presetConfig.mobile.subNavLi.textAlign ? `text-align: ${presetConfig.mobile.subNavLi.textAlign} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNavLink ? `
+        html body .app-container .header .header__subnav li a {
+          ${presetConfig.mobile.subNavLink.justifyContent ? `justify-content: ${presetConfig.mobile.subNavLink.justifyContent} !important;` : ''}
+          ${presetConfig.mobile.subNavLink.textAlign ? `text-align: ${presetConfig.mobile.subNavLink.textAlign} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.menuButtonOpen ? `
+        html body.header--open .app-container .header .header__nav .btn--menu {
+          ${presetConfig.mobile.menuButtonOpen.clipPath ? `clip-path: ${presetConfig.mobile.menuButtonOpen.clipPath} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.menuButtonOpenBefore ? `
+        html body.header--open .app-container .header .header__nav .btn--menu:before {
+          ${presetConfig.mobile.menuButtonOpenBefore.left ? `left: ${presetConfig.mobile.menuButtonOpenBefore.left} !important;` : ''}
+          ${presetConfig.mobile.menuButtonOpenBefore.right ? `right: ${presetConfig.mobile.menuButtonOpenBefore.right} !important;` : ''}
+        }
+        ` : ''}
+      }
+      `;
+    }
+
+    // Desktop styles
+    if (presetConfig.desktop) {
+      css += `
+      /* Desktop/Large screen styles */
+      @media (min-width: 768px) {
+        ${presetConfig.desktop.headerNav ? `
+        html body .app-container .header .header__nav {
+          display: flex !important;
+          ${presetConfig.desktop.headerNav.flexDirection ? `flex-direction: ${presetConfig.desktop.headerNav.flexDirection} !important;` : ''}
+          ${presetConfig.desktop.headerNav.justifyContent ? `justify-content: ${presetConfig.desktop.headerNav.justifyContent} !important;` : ''}
+          ${presetConfig.desktop.headerNav.gap ? `gap: ${presetConfig.desktop.headerNav.gap} !important;` : ''}
+          ${presetConfig.desktop.headerNav.alignItems ? `align-items: ${presetConfig.desktop.headerNav.alignItems} !important;` : ''}
+          ${presetConfig.desktop.headerNav.width ? `width: ${presetConfig.desktop.headerNav.width} !important;` : ''}
+          ${presetConfig.desktop.headerNav.minHeight ? `min-height: ${presetConfig.desktop.headerNav.minHeight} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.logoLink ? `
+        html body .app-container .header .header__nav .logo-link {
+          display: flex !important;
+          align-items: center !important;
+          ${presetConfig.desktop.logoLink.width ? `width: ${presetConfig.desktop.logoLink.width} !important;` : ''}
+          ${presetConfig.desktop.logoLink.flexShrink ? `flex-shrink: ${presetConfig.desktop.logoLink.flexShrink} !important;` : ''}
+          ${presetConfig.desktop.logoLink.margin ? `margin: ${presetConfig.desktop.logoLink.margin} !important;` : ''}
+        }
+        ` : ''}
+
+        html body .app-container .header .header__nav .logo-link .header__logo {
+          display: block !important;
+          max-height: ${presetConfig.desktop.logo.maxHeight} !important;
+          width: ${presetConfig.desktop.logo.width} !important;
+          ${presetConfig.desktop.logo.margin ? `margin: ${presetConfig.desktop.logo.margin} !important;` : ''}
+        }
+        
+        ${presetConfig.desktop.navigationWrapper ? `
+        html body .app-container .header .header__navigations-wrapper {
+          ${presetConfig.desktop.navigationWrapper.left ? `left: ${presetConfig.desktop.navigationWrapper.left} !important;` : ''}
+          ${presetConfig.desktop.navigationWrapper.right ? `right: ${presetConfig.desktop.navigationWrapper.right} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.subNav ? `
+        html body .app-container .header .header__subnav {
+          ${presetConfig.desktop.subNav.left ? `left: ${presetConfig.desktop.subNav.left} !important;` : ''}
+          ${presetConfig.desktop.subNav.right ? `right: ${presetConfig.desktop.subNav.right} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.subNavUl ? `
+        html body .app-container .header .header__subnav ul {
+          ${presetConfig.desktop.subNavUl.alignItems ? `align-items: ${presetConfig.desktop.subNavUl.alignItems} !important;` : ''}
+          ${presetConfig.desktop.subNavUl.paddingLeft ? `padding-left: ${presetConfig.desktop.subNavUl.paddingLeft} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.subNavLink ? `
+        html body .app-container .header .header__subnav li a {
+          ${presetConfig.desktop.subNavLink.justifyContent ? `justify-content: ${presetConfig.desktop.subNavLink.justifyContent} !important;` : ''}
+          ${presetConfig.desktop.subNavLink.textAlign ? `text-align: ${presetConfig.desktop.subNavLink.textAlign} !important;` : ''}
+        }
+        ` : ''}
+      }
+      `;
+    }
+
+    // Extra large screen styles
+    if (presetConfig.extraLarge) {
+      css += `
+      /* Extra large screens */
+      @media (min-width: 1200px) {
+        .header__logo {
+          max-height: ${presetConfig.extraLarge.logo.maxHeight} !important;
+        }
+      }
+      `;
+    }
+
+    styleElement.textContent = css;
+    console.log('✓ Header CSS styles injected');
+  }
+
   // Inject CSS for disabled links
   function injectDisabledLinkStyles() {
     const styleId = 'site-config-disabled-styles';
@@ -282,6 +551,9 @@
 
     // Inject CSS styles for disabled links
     injectDisabledLinkStyles();
+
+    // Apply header styles from data/header.json
+    applyHeaderStyles();
 
     // 1. INTRO ANIMATION
     handleIntroAnimation(features.introAnimation.enabled);
