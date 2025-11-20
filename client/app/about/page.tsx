@@ -42,7 +42,7 @@ export default function AboutPage() {
             </div>
 
             <button
-              onClick={() => setVideoPopupOpen(true)}
+              // onClick={() => setVideoPopupOpen(true)}
               className="player-link js-open-popin-video flex items-center gap-2 btn hover:bg-bg-dark hover:text-light transition-smooth"
             >
               <svg width="8" height="10" viewBox="0 0 8 10" fill="none">

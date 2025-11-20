@@ -305,6 +305,114 @@
     injectHeaderCSS(presetConfig);
   }
 
+  // Inject comprehensive navigation styles only (for when critical CSS exists)
+  function injectComprehensiveHeaderCSS(presetConfig) {
+    const styleId = 'header-comprehensive-styles';
+    let styleElement = document.getElementById(styleId);
+    
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = styleId;
+      document.head.appendChild(styleElement);
+    }
+
+    let css = '';
+
+    // Mobile comprehensive styles (navigation, submenu, menu button states)
+    if (presetConfig.mobile) {
+      css += `
+      @media (max-width: 767px) {
+        ${presetConfig.mobile.navigationWrapper ? `
+        html body .app-container .header .header__navigations-wrapper {
+          ${presetConfig.mobile.navigationWrapper.left ? `left: ${presetConfig.mobile.navigationWrapper.left} !important;` : ''}
+          ${presetConfig.mobile.navigationWrapper.right ? `right: ${presetConfig.mobile.navigationWrapper.right} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNav ? `
+        html body .app-container .header .header__subnav {
+          ${presetConfig.mobile.subNav.left ? `left: ${presetConfig.mobile.subNav.left} !important;` : ''}
+          ${presetConfig.mobile.subNav.right ? `right: ${presetConfig.mobile.subNav.right} !important;` : ''}
+          ${presetConfig.mobile.subNav.textAlign ? `text-align: ${presetConfig.mobile.subNav.textAlign} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNavUl ? `
+        html body .app-container .header .header__subnav ul {
+          ${presetConfig.mobile.subNavUl.alignItems ? `align-items: ${presetConfig.mobile.subNavUl.alignItems} !important;` : ''}
+          ${presetConfig.mobile.subNavUl.paddingLeft ? `padding-left: ${presetConfig.mobile.subNavUl.paddingLeft} !important;` : ''}
+          ${presetConfig.mobile.subNavUl.paddingRight ? `padding-right: ${presetConfig.mobile.subNavUl.paddingRight} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNavLi ? `
+        html body .app-container .header .header__subnav li {
+          ${presetConfig.mobile.subNavLi.textAlign ? `text-align: ${presetConfig.mobile.subNavLi.textAlign} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.subNavLink ? `
+        html body .app-container .header .header__subnav li a {
+          ${presetConfig.mobile.subNavLink.justifyContent ? `justify-content: ${presetConfig.mobile.subNavLink.justifyContent} !important;` : ''}
+          ${presetConfig.mobile.subNavLink.textAlign ? `text-align: ${presetConfig.mobile.subNavLink.textAlign} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.menuButtonOpen ? `
+        html body.header--open .app-container .header .header__nav .btn--menu {
+          ${presetConfig.mobile.menuButtonOpen.clipPath ? `clip-path: ${presetConfig.mobile.menuButtonOpen.clipPath} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.mobile.menuButtonOpenBefore ? `
+        html body.header--open .app-container .header .header__nav .btn--menu:before {
+          ${presetConfig.mobile.menuButtonOpenBefore.left ? `left: ${presetConfig.mobile.menuButtonOpenBefore.left} !important;` : ''}
+          ${presetConfig.mobile.menuButtonOpenBefore.right ? `right: ${presetConfig.mobile.menuButtonOpenBefore.right} !important;` : ''}
+        }
+        ` : ''}
+      }
+      `;
+    }
+
+    // Desktop comprehensive styles
+    if (presetConfig.desktop) {
+      css += `
+      @media (min-width: 768px) {
+        ${presetConfig.desktop.navigationWrapper ? `
+        html body .app-container .header .header__navigations-wrapper {
+          ${presetConfig.desktop.navigationWrapper.left ? `left: ${presetConfig.desktop.navigationWrapper.left} !important;` : ''}
+          ${presetConfig.desktop.navigationWrapper.right ? `right: ${presetConfig.desktop.navigationWrapper.right} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.subNav ? `
+        html body .app-container .header .header__subnav {
+          ${presetConfig.desktop.subNav.left ? `left: ${presetConfig.desktop.subNav.left} !important;` : ''}
+          ${presetConfig.desktop.subNav.right ? `right: ${presetConfig.desktop.subNav.right} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.subNavUl ? `
+        html body .app-container .header .header__subnav ul {
+          ${presetConfig.desktop.subNavUl.alignItems ? `align-items: ${presetConfig.desktop.subNavUl.alignItems} !important;` : ''}
+          ${presetConfig.desktop.subNavUl.paddingLeft ? `padding-left: ${presetConfig.desktop.subNavUl.paddingLeft} !important;` : ''}
+        }
+        ` : ''}
+        
+        ${presetConfig.desktop.subNavLink ? `
+        html body .app-container .header .header__subnav li a {
+          ${presetConfig.desktop.subNavLink.justifyContent ? `justify-content: ${presetConfig.desktop.subNavLink.justifyContent} !important;` : ''}
+          ${presetConfig.desktop.subNavLink.textAlign ? `text-align: ${presetConfig.desktop.subNavLink.textAlign} !important;` : ''}
+        }
+        ` : ''}
+      }
+      `;
+    }
+
+    styleElement.textContent = css;
+    console.log('✓ Comprehensive navigation styles injected');
+  }
+
   // Inject dynamic CSS for header styles
   function injectHeaderCSS(presetConfig) {
     const styleId = 'header-config-styles';

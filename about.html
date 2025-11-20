@@ -296,7 +296,7 @@
                 class="box--video__wrapper video-wrapper js-player fit-cover"
               >
                 <video
-                  src="https://player.vimeo.com/progressive_redirect/playback/1037524789/rendition/1080p/file.mp4?loc=external&amp;oauth2_token_id=1774001646&amp;signature=912fcae972afe8fe4920f8b76e89921da82f7018a5dfdc50e539d7733d7caefc"
+                  src="https://video.wixstatic.com/video/8c2c22_13c6aa4d9ebb4e6d9e591dcaaa7cb89e/720p/mp4/file.mp4"
                   playsinline
                 ></video>
               </div>
@@ -328,11 +328,25 @@
         const aboutBox = document.querySelector('.box--about');
         const aboutButton = document.querySelector('.player-link');
 
-        if (aboutBox && pageData.content) {
-          aboutBox.innerHTML = pageData.content.main_text;
+        // Build the content with founder bio if available
+        let contentHTML = '';
+        
+        if (pageData.founder) {
+          contentHTML += `<h2>${pageData.founder.name}</h2>`;
+          contentHTML += `<h3>${pageData.founder.title}</h3><br />`;
+          contentHTML += pageData.founder.bio;
+          contentHTML += '<br /><br />';
+        }
+        
+        if (pageData.content) {
+          contentHTML += pageData.content.main_text;
         }
 
-        if (aboutButton && pageData.content.video_button) {
+        if (aboutBox) {
+          aboutBox.innerHTML = contentHTML;
+        }
+
+        if (aboutButton && pageData.content && pageData.content.video_button) {
           aboutButton.innerHTML = `<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.25 4.56699C7.58333 4.75944 7.58333 5.24056 7.25 5.43301L1.25 8.89711C0.916667 9.08956 0.500001 8.849 0.500001 8.4641L0.500001 1.5359C0.500001 1.151 0.916668 0.910436 1.25 1.10289L7.25 4.56699Z" stroke="currentColor"/>
 </svg> ${pageData.content.video_button.text}`;

@@ -286,14 +286,27 @@
 
         // Render address information
         if (addressBox && pageData.address) {
-          const addressHTML = `
-      <p>${pageData.address.street}<br />
+          let addressHTML = `
+      <p>${pageData.address.street ? pageData.address.street + '<br />' : ''}
       ${pageData.address.city}</p>
       <p>
         T&nbsp;: <a class="lnk lnk--through" href="tel:${pageData.address.phone}">${pageData.address.phone}</a><br/>
         E&nbsp;: <a class="lnk lnk--through" href="mailto:${pageData.address.email}">${pageData.address.email}</a>
       </p>
     `;
+          
+          // Add social media links if available
+          if (pageData.social) {
+            addressHTML += '<p>';
+            if (pageData.social.vimeo) {
+              addressHTML += `Vimeo: <a class="lnk lnk--through" href="${pageData.social.vimeo}" target="_blank" rel="noopener">dubaifilmmaker</a><br/>`;
+            }
+            if (pageData.social.instagram) {
+              addressHTML += `Instagram: <a class="lnk lnk--through" href="${pageData.social.instagram}" target="_blank" rel="noopener">@dubaifilmmaker</a>`;
+            }
+            addressHTML += '</p>';
+          }
+          
           addressBox.innerHTML = addressHTML;
         }
       }
