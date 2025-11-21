@@ -5,140 +5,163 @@ export interface Database {
         Row: {
           id: string
           title: string
-          slug: string
-          client: string
-          category: string
-          data_cat: string
-          description: string | null
-          poster_image: string
-          poster_image_srcset: string
-          video_url: string
-          video_formats: Json
-          featured: boolean
+          client: string | null
+          category: string | null
+          data_cat: string | null
+          poster_image: string | null
+          poster_image_srcset: string | null
+          video_url: string | null
+          link: string | null
           order_index: number
-          seo: Json
+          is_featured: boolean
+          is_published: boolean
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           title: string
-          slug: string
-          client: string
-          category: string
-          data_cat: string
-          description?: string | null
-          poster_image: string
-          poster_image_srcset: string
-          video_url: string
-          video_formats?: Json
-          featured?: boolean
+          client?: string | null
+          category?: string | null
+          data_cat?: string | null
+          poster_image?: string | null
+          poster_image_srcset?: string | null
+          video_url?: string | null
+          link?: string | null
           order_index?: number
-          seo?: Json
+          is_featured?: boolean
+          is_published?: boolean
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           title?: string
-          slug?: string
-          client?: string
-          category?: string
-          data_cat?: string
-          description?: string | null
-          poster_image?: string
-          poster_image_srcset?: string
-          video_url?: string
-          video_formats?: Json
-          featured?: boolean
+          client?: string | null
+          category?: string | null
+          data_cat?: string | null
+          poster_image?: string | null
+          poster_image_srcset?: string | null
+          video_url?: string | null
+          link?: string | null
           order_index?: number
-          seo?: Json
+          is_featured?: boolean
+          is_published?: boolean
           created_at?: string
           updated_at?: string
         }
       }
-      content_pages: {
+      about_content: {
+        Row: {
+          id: number
+          founder_name: string | null
+          founder_title: string | null
+          founder_bio: string | null
+          company_description: string | null
+          video_button_text: string | null
+          video_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: number
+          founder_name?: string | null
+          founder_title?: string | null
+          founder_bio?: string | null
+          company_description?: string | null
+          video_button_text?: string | null
+          video_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: number
+          founder_name?: string | null
+          founder_title?: string | null
+          founder_bio?: string | null
+          company_description?: string | null
+          video_button_text?: string | null
+          video_url?: string | null
+          updated_at?: string
+        }
+      }
+      contact_info: {
+        Row: {
+          id: number
+          email: string | null
+          phone: string | null
+          city: string | null
+          street: string | null
+          vimeo_url: string | null
+          instagram_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: number
+          email?: string | null
+          phone?: string | null
+          city?: string | null
+          street?: string | null
+          vimeo_url?: string | null
+          instagram_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: number
+          email?: string | null
+          phone?: string | null
+          city?: string | null
+          street?: string | null
+          vimeo_url?: string | null
+          instagram_url?: string | null
+          updated_at?: string
+        }
+      }
+      staff_members: {
         Row: {
           id: string
-          page_type: string
-          title: string
-          content: Json
-          meta: Json
+          name: string
+          email: string | null
+          department: string | null
+          order_index: number
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          page_type: string
-          title: string
-          content: Json
-          meta?: Json
+          name: string
+          email?: string | null
+          department?: string | null
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          page_type?: string
-          title?: string
-          content?: Json
-          meta?: Json
+          name?: string
+          email?: string | null
+          department?: string | null
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
       }
-      site_settings: {
+      header_config: {
         Row: {
-          id: string
-          key: string
-          value: Json
+          id: number
+          active_preset: string
+          config_json: Json | null
           updated_at: string
         }
         Insert: {
-          id?: string
-          key: string
-          value: Json
+          id?: number
+          active_preset?: string
+          config_json?: Json | null
           updated_at?: string
         }
         Update: {
-          id?: string
-          key?: string
-          value?: Json
+          id?: number
+          active_preset?: string
+          config_json?: Json | null
           updated_at?: string
-        }
-      }
-      media_files: {
-        Row: {
-          id: string
-          filename: string
-          original_name: string
-          file_type: string
-          file_size: number
-          url: string
-          alt_text: string | null
-          folder: string | null
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          filename: string
-          original_name: string
-          file_type: string
-          file_size: number
-          url: string
-          alt_text?: string | null
-          folder?: string | null
-          created_at?: string
-        }
-        Update: {
-          id?: string
-          filename?: string
-          original_name?: string
-          file_type?: string
-          file_size?: number
-          url?: string
-          alt_text?: string | null
-          folder?: string | null
-          created_at?: string
         }
       }
     }

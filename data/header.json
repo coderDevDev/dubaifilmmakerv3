@@ -1,5 +1,5 @@
 {
-  "activePreset": "reversed",
+  "activePreset": "default",
   "description": "Header configuration - switch between different header layouts and logo styles",
   "presets": {
     "default": {
@@ -12,7 +12,7 @@
       "mobile": {
         "headerNav": {
           "alignItems": "center",
-          "padding": "0px 0",
+          "padding": "10px 0",
           "minHeight": "0px",
           "flexDirection": "row"
         },
@@ -48,7 +48,7 @@
       "mobile": {
         "headerNav": {
           "alignItems": "center",
-          "padding": "0 15px 0 20px",
+          "padding": "0px",
           "minHeight": "50px",
           "flexDirection": "row-reverse",
           "justifyContent": "space-between",
@@ -58,7 +58,7 @@
         "logoLink": {
           "maxWidth": "180px",
           "flexShrink": "0",
-          "paddingRight": "20px",
+          "paddingRight": "0px",
           "width": "auto",
           "margin": "0"
         },
