@@ -297,6 +297,8 @@
         if (presetConfig.logo.alt) {
           logo.alt = presetConfig.logo.alt;
         }
+        // Add 'loaded' class to make logo visible with smooth transition
+        logo.classList.add('loaded');
       });
       console.log(`✓ Logo updated to: ${presetConfig.logo.src}`);
     }
@@ -607,6 +609,28 @@
 
     styleElement.textContent = css;
     console.log('✓ Header CSS styles injected');
+  }
+
+  // Inject initial CSS to prevent logo flicker
+  function injectInitialLogoStyles() {
+    const styleId = 'site-config-initial-logo';
+    if (document.getElementById(styleId)) return; // Already injected
+
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      /* Hide logo initially to prevent flicker */
+      .header__logo {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      /* Show logo after styles are applied */
+      .header__logo.loaded {
+        opacity: 1 !important;
+      }
+    `;
+    document.head.appendChild(style);
+    console.log('✓ Initial logo styles injected');
   }
 
   // Inject CSS for disabled links
@@ -1272,17 +1296,26 @@
         let contentLoaded = false;
         
         if (targetSlug === 'contact') {
-          contentLoaded = document.querySelector('.box--staff') || 
-                         document.querySelector('.box--address') ||
-                         document.body.textContent.includes('Loading staff');
+          const staffList = document.querySelector('.list--staff');
+          const addressBox = document.querySelector('.box--address');
+          contentLoaded = staffList || addressBox || document.body.textContent.includes('Loading staff');
+          console.log('Contact elements found:', { staffList: !!staffList, addressBox: !!addressBox });
         } else if (targetSlug === 'about') {
-          contentLoaded = document.querySelector('.box--about') ||
-                         document.body.textContent.includes('Loading about');
+          const aboutBox = document.querySelector('.box--about');
+          contentLoaded = aboutBox || document.body.textContent.includes('Loading about');
+          console.log('About elements found:', { aboutBox: !!aboutBox });
         } else if (targetSlug === 'works') {
-          contentLoaded = document.querySelector('.list--works') || 
-                         document.querySelector('.bloc-projects-listing');
+          const listWorks = document.querySelector('.list--works');
+          const worksListing = document.querySelector('.bloc-projects-listing');
+          const worksContainer = document.getElementById('works-list-project');
+          contentLoaded = listWorks || worksListing || worksContainer;
+          console.log('Works elements found:', { listWorks: !!listWorks, worksListing: !!worksListing, worksContainer: !!worksContainer });
         } else if (targetSlug === 'homepage') {
-          contentLoaded = document.querySelector('.bloc-slider');
+          const blocSlider = document.querySelector('.bloc-slider');
+          const worksContainer = document.getElementById('works');
+          const templateHomepage = document.body.classList.contains('template-homepage');
+          contentLoaded = blocSlider || worksContainer || templateHomepage;
+          console.log('Homepage elements found:', { blocSlider: !!blocSlider, worksContainer: !!worksContainer, templateHomepage });
         }
         
         if (contentLoaded) {
