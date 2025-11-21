@@ -128,13 +128,13 @@
           var css = '';
           if (preset.mobile) {
             css += '@media (max-width: 767px) {';
-            css += 'html body .app-container .header .header__nav {display: flex !important;align-items: ' + preset.mobile.headerNav.alignItems + ' !important;padding: ' + preset.mobile.headerNav.padding + ' !important;min-height: ' + preset.mobile.headerNav.minHeight + ' !important;';
+            css += 'html body.template-projects .app-container .header .header__nav, html body.template-homepage .app-container .header .header__nav, html body.template-about .app-container .header .header__nav, html body.template-contact .app-container .header .header__nav {display: flex !important;align-items: ' + preset.mobile.headerNav.alignItems + ' !important;padding: ' + preset.mobile.headerNav.padding + ' !important;min-height: ' + preset.mobile.headerNav.minHeight + ' !important;';
             if (preset.mobile.headerNav.flexDirection) css += 'flex-direction: ' + preset.mobile.headerNav.flexDirection + ' !important;';
             if (preset.mobile.headerNav.justifyContent) css += 'justify-content: ' + preset.mobile.headerNav.justifyContent + ' !important;';
             if (preset.mobile.headerNav.gap) css += 'gap: ' + preset.mobile.headerNav.gap + ' !important;';
             if (preset.mobile.headerNav.width) css += 'width: ' + preset.mobile.headerNav.width + ' !important;';
             css += '}';
-            css += 'html body .app-container .header .header__nav .logo-link {display: flex !important;align-items: center !important;';
+            css += 'html body.template-projects .app-container .header .header__nav .logo-link, html body.template-homepage .app-container .header .header__nav .logo-link, html body.template-about .app-container .header .header__nav .logo-link, html body.template-contact .app-container .header .header__nav .logo-link {display: flex !important;align-items: center !important;';
             if (preset.mobile.logoLink.maxWidth) css += 'max-width: ' + preset.mobile.logoLink.maxWidth + ' !important;';
             if (preset.mobile.logoLink.flex) css += 'flex: ' + preset.mobile.logoLink.flex + ' !important;';
             if (preset.mobile.logoLink.flexShrink) css += 'flex-shrink: ' + preset.mobile.logoLink.flexShrink + ' !important;';
@@ -142,14 +142,14 @@
             if (preset.mobile.logoLink.width) css += 'width: ' + preset.mobile.logoLink.width + ' !important;';
             if (preset.mobile.logoLink.margin) css += 'margin: ' + preset.mobile.logoLink.margin + ' !important;';
             css += '}';
-            css += 'html body .app-container .header .header__nav .logo-link .header__logo {display: block !important;max-height: ' + preset.mobile.logo.maxHeight + ' !important;max-width: ' + preset.mobile.logo.maxWidth + ' !important;width: ' + preset.mobile.logo.width + ' !important;' + (preset.mobile.logo.margin ? 'margin: ' + preset.mobile.logo.margin + ' !important;' : 'margin: 0 !important;') + '}';
-            css += 'html body .app-container .header .header__nav .btn--menu {flex-shrink: 0 !important;margin: 0 !important;}';
+            css += 'html body.template-projects .app-container .header .header__nav .logo-link .header__logo, html body.template-homepage .app-container .header .header__nav .logo-link .header__logo, html body.template-about .app-container .header .header__nav .logo-link .header__logo, html body.template-contact .app-container .header .header__nav .logo-link .header__logo {display: block !important;max-height: ' + preset.mobile.logo.maxHeight + ' !important;max-width: ' + preset.mobile.logo.maxWidth + ' !important;width: ' + preset.mobile.logo.width + ' !important;' + (preset.mobile.logo.margin ? 'margin: ' + preset.mobile.logo.margin + ' !important;' : 'margin: 0 !important;') + '}';
+            css += 'html body.template-projects .app-container .header .header__nav .btn--menu, html body.template-homepage .app-container .header .header__nav .btn--menu, html body.template-about .app-container .header .header__nav .btn--menu, html body.template-contact .app-container .header .header__nav .btn--menu {flex-shrink: 0 !important;margin: 0 !important;}';
             css += '}';
           }
           if (preset.desktop) {
             css += '@media (min-width: 768px) {';
             if (preset.desktop.headerNav) {
-              css += 'html body .app-container .header .header__nav {display: flex !important;';
+              css += 'html body.template-projects .app-container .header .header__nav, html body.template-homepage .app-container .header .header__nav, html body.template-about .app-container .header .header__nav, html body.template-contact .app-container .header .header__nav {display: flex !important;';
               if (preset.desktop.headerNav.flexDirection) css += 'flex-direction: ' + preset.desktop.headerNav.flexDirection + ' !important;';
               if (preset.desktop.headerNav.justifyContent) css += 'justify-content: ' + preset.desktop.headerNav.justifyContent + ' !important;';
               if (preset.desktop.headerNav.gap) css += 'gap: ' + preset.desktop.headerNav.gap + ' !important;';
@@ -158,11 +158,18 @@
               if (preset.desktop.headerNav.minHeight) css += 'min-height: ' + preset.desktop.headerNav.minHeight + ' !important;';
               css += '}';
             }
-            css += 'html body .app-container .header .header__nav .logo-link .header__logo {display: block !important;max-height: ' + preset.desktop.logo.maxHeight + ' !important;width: ' + preset.desktop.logo.width + ' !important;' + (preset.desktop.logo.margin ? 'margin: ' + preset.desktop.logo.margin + ' !important;' : '') + '}';
+            if (preset.desktop.logoLink) {
+              css += 'html body.template-projects .app-container .header .header__nav .logo-link, html body.template-homepage .app-container .header .header__nav .logo-link, html body.template-about .app-container .header .header__nav .logo-link, html body.template-contact .app-container .header .header__nav .logo-link {';
+              if (preset.desktop.logoLink.width) css += 'width: ' + preset.desktop.logoLink.width + ' !important;';
+              if (preset.desktop.logoLink.flexShrink) css += 'flex-shrink: ' + preset.desktop.logoLink.flexShrink + ' !important;';
+              if (preset.desktop.logoLink.margin) css += 'margin: ' + preset.desktop.logoLink.margin + ' !important;';
+              css += '}';
+            }
+            css += 'html body.template-projects .app-container .header .header__nav .logo-link .header__logo, html body.template-homepage .app-container .header .header__nav .logo-link .header__logo, html body.template-about .app-container .header .header__nav .logo-link .header__logo, html body.template-contact .app-container .header .header__nav .logo-link .header__logo {display: block !important;max-height: ' + preset.desktop.logo.maxHeight + ' !important;width: ' + preset.desktop.logo.width + ' !important;' + (preset.desktop.logo.margin ? 'margin: ' + preset.desktop.logo.margin + ' !important;' : '') + '}';
             css += '}';
           }
           if (preset.extraLarge) {
-            css += '@media (min-width: 1200px) {html body .app-container .header .header__nav .logo-link .header__logo {max-height: ' + preset.extraLarge.logo.maxHeight + ' !important;}}';
+            css += '@media (min-width: 1200px) {html body.template-projects .app-container .header .header__nav .logo-link .header__logo, html body.template-homepage .app-container .header .header__nav .logo-link .header__logo, html body.template-about .app-container .header .header__nav .logo-link .header__logo, html body.template-contact .app-container .header .header__nav .logo-link .header__logo {max-height: ' + preset.extraLarge.logo.maxHeight + ' !important;}}';
           }
           return css;
         }
@@ -241,7 +248,7 @@
                 </button>
               </div>
 
-              <ul class="list list--about-images">
+              <!-- <ul class="list list--about-images">
                 object(Kirby\Cms\Files)#284 (4) { [0]=> string(52)
                 "about/adv-architecture-et-agencement-advstudio-1.jpg" [1]=>
                 string(52)
@@ -278,7 +285,7 @@
                     alt=""
                   />
                 </li>
-              </ul>
+              </ul> -->
             </div>
 
             <div
@@ -309,6 +316,7 @@
     <!--  -->
 
     <script src="assets/dist/build.min.js"></script>
+    <script src="assets/js/site-config.js"></script>
 
     <script>
       // Load about content when accessing about.html directly

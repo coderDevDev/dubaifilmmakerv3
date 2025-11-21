@@ -959,11 +959,429 @@
     return false;
   }
 
+  // Global content loading functions (always available for SPA navigation)
+  window.loadContactContent = async function() {
+    try {
+      console.log('Loading contact page content...');
+      const response = await fetch('data/contact.json');
+      const data = await response.json();
+      renderContactContent(data.page);
+    } catch (error) {
+      console.error('Error loading contact content:', error);
+    }
+  };
+
+  function renderContactContent(pageData) {
+    console.log('Rendering contact page content...');
+    const staffList = document.querySelector('.list--staff');
+    const addressBox = document.querySelector('.box--address');
+
+    if (staffList && pageData.staff) {
+      staffList.innerHTML = '';
+      pageData.staff.forEach(department => {
+        const departmentHTML = `
+          <li>
+            <h2>${department.title}</h2>
+            <ul class="list list--members">
+              ${department.members.map(member => `
+                <li>
+                  ${member.name}<br/>
+                  <a class="lnk lnk--through" href="mailto:${member.email}">${member.email}</a>
+                </li>
+              `).join('')}
+            </ul>
+          </li>
+        `;
+        staffList.innerHTML += departmentHTML;
+      });
+    }
+
+    if (addressBox && pageData.address) {
+      let addressHTML = `
+        <p>${pageData.address.street ? pageData.address.street + '<br />' : ''}
+        ${pageData.address.city}</p>
+        <p>
+          T&nbsp;: <a class="lnk lnk--through" href="tel:${pageData.address.phone}">${pageData.address.phone}</a><br/>
+          E&nbsp;: <a class="lnk lnk--through" href="mailto:${pageData.address.email}">${pageData.address.email}</a>
+        </p>
+      `;
+      
+      if (pageData.social) {
+        addressHTML += '<p>';
+        if (pageData.social.vimeo) {
+          addressHTML += `Vimeo: <a class="lnk lnk--through" href="${pageData.social.vimeo}" target="_blank" rel="noopener">dubaifilmmaker</a><br/>`;
+        }
+        if (pageData.social.instagram) {
+          addressHTML += `Instagram: <a class="lnk lnk--through" href="${pageData.social.instagram}" target="_blank" rel="noopener">@dubaifilmmaker</a>`;
+        }
+        addressHTML += '</p>';
+      }
+      
+      addressBox.innerHTML = addressHTML;
+    }
+  }
+
+  window.loadAboutContent = async function() {
+    try {
+      console.log('Loading about page content...');
+      const response = await fetch('data/about.json');
+      const data = await response.json();
+      renderAboutContent(data.page);
+    } catch (error) {
+      console.error('Error loading about content:', error);
+    }
+  };
+
+  function renderAboutContent(pageData) {
+    console.log('Rendering about page content...');
+    const aboutBox = document.querySelector('.box--about');
+    const aboutButton = document.querySelector('.player-link');
+
+    let contentHTML = '';
+    
+    if (pageData.founder) {
+      contentHTML += `<h2>${pageData.founder.name}</h2>`;
+      contentHTML += `<h3>${pageData.founder.title}</h3><br />`;
+      contentHTML += pageData.founder.bio;
+      contentHTML += '<br /><br />';
+    }
+    
+    if (pageData.content) {
+      contentHTML += pageData.content.main_text;
+    }
+
+    if (aboutBox) {
+      aboutBox.innerHTML = contentHTML;
+    }
+
+    if (aboutButton && pageData.content && pageData.content.video_button) {
+      aboutButton.innerHTML = `<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.25 4.56699C7.58333 4.75944 7.58333 5.24056 7.25 5.43301L1.25 8.89711C0.916667 9.08956 0.500001 8.849 0.500001 8.4641L0.500001 1.5359C0.500001 1.151 0.916668 0.910436 1.25 1.10289L7.25 4.56699Z" stroke="currentColor"/>
+</svg> ${pageData.content.video_button.text}`;
+    }
+  }
+
+  window.loadProjects = async function() {
+    try {
+      console.log('Loading projects for works page...');
+      const response = await fetch('data/project.json');
+      const data = await response.json();
+      renderProjects(data.projects);
+    } catch (error) {
+      console.error('Error loading projects:', error);
+    }
+  };
+
+  function renderProjects(projects) {
+    console.log('Rendering projects for works page...');
+    const worksContainer = document.getElementById('works-list-project');
+    
+    if (worksContainer) {
+      worksContainer.innerHTML = '';
+      
+      projects.forEach(project => {
+        const projectHTML = `
+          <li class="box box--work" data-cat="${project.data_cat}">
+            <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
+              <div class="box--work__info">
+                <h2>${project.title}</h2>
+                <p>${project.client}</p>
+                <p>${project.category}</p>
+              </div>
+              <div class="box--work__video video-wrapper has-poster">
+                <img class="video-img-poster lazy-media loaded"
+                  src="${project.poster_image}"
+                  srcset="${project.poster_image_srcset}"
+                  alt="">
+                <video class="js-video lazy-media loaded"
+                  src="${project.video_url}"
+                  playsinline loop muted></video>
+              </div>
+              <div class="cursor-text-animated js-cursor-text-animated">
+                <div class="mooving-elements is-arrow" data-friction="1">
+                  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.72366 3.91174H7.0685L5.14349 3.8482L6.53777 4.99985L8.40882 6.65189L7.19444 7.72412L5.3234 6.07209L4.01007 4.83306L4.07303 6.50892L4.06404 8.02593L2.3819 6.54069L2.39989 2.42649L7.04152 2.42649L8.72366 3.91174Z" fill="white"/>
+                  </svg>
+                </div>
+                <div class="mooving-elements shift cursor-main-text" data-friction="5">
+                  <h2>${project.title}</h2>
+                  <p>${project.client}</p>
+                  <p>${project.category}</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        `;
+        worksContainer.innerHTML += projectHTML;
+      });
+    }
+  }
+
+  window.loadIndexProjects = async function() {
+    try {
+      console.log('Loading projects for index page...');
+      const response = await fetch('data/project.json');
+      const data = await response.json();
+      renderIndexProjects(data.projects);
+    } catch (error) {
+      console.error('Error loading projects:', error);
+    }
+  };
+
+  function renderIndexProjects(projects) {
+    console.log('Rendering projects for index page...');
+    const worksContainer = document.getElementById('works');
+
+    if (worksContainer) {
+      worksContainer.innerHTML = '';
+      
+      projects.forEach(project => {
+        const projectHTML = `
+          <li class="box box--work" data-cat="${project.data_cat}">
+            <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
+              <div class="box--work__info">
+                <h2>${project.title}</h2>
+                <p>${project.client}</p>
+                <p>${project.category}</p>
+              </div>
+              <div class="box--work__video video-wrapper has-poster">
+                <img class="video-img-poster lazy-media loaded"
+                  src="${project.poster_image}"
+                  srcset="${project.poster_image_srcset}"
+                  alt="">
+                <video class="js-video lazy-media loaded"
+                  src="${project.video_url}"
+                  playsinline loop muted></video>
+              </div>
+              <div class="cursor-text-animated js-cursor-text-animated">
+                <div class="mooving-elements is-arrow" data-friction="1">
+                  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.72366 3.91174H7.0685L5.14349 3.8482L6.53777 4.99985L8.40882 6.65189L7.19444 7.72412L5.3234 6.07209L4.01007 4.83306L4.07303 6.50892L4.06404 8.02593L2.3819 6.54069L2.39989 2.42649L7.04152 2.42649L8.72366 3.91174Z" fill="white"/>
+                  </svg>
+                </div>
+                <div class="mooving-elements shift cursor-main-text" data-friction="5">
+                  <h2>${project.title}</h2>
+                  <p>${project.client}</p>
+                  <p>${project.category}</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        `;
+        worksContainer.innerHTML += projectHTML;
+      });
+    }
+  }
+
+  // Update body class based on data-slug
+  function updateBodyClass(slug) {
+    console.log('🔄 updateBodyClass called with slug:', slug);
+    const body = document.body;
+    
+    // Remove all template classes
+    body.classList.remove('template-homepage', 'template-projects', 'template-about', 'template-contact');
+    
+    // If no slug provided, try to detect from URL or current active link
+    if (!slug) {
+      const path = window.location.pathname;
+      console.log('No slug provided, detecting from path:', path);
+      if (path === '/' || path === '/index.html' || path === '/index' || path === '') {
+        slug = 'homepage';
+      } else if (path.includes('/works')) {
+        slug = 'works';
+      } else if (path.includes('/about')) {
+        slug = 'about';
+      } else if (path.includes('/contact')) {
+        slug = 'contact';
+      }
+    }
+    
+    // Add appropriate class based on slug
+    let newClass = '';
+    if (slug === 'homepage') {
+      newClass = 'template-homepage';
+    } else if (slug === 'works') {
+      newClass = 'template-projects';
+    } else if (slug === 'about') {
+      newClass = 'template-about';
+    } else if (slug === 'contact') {
+      newClass = 'template-contact';
+    }
+    
+    if (newClass) {
+      body.classList.add(newClass);
+      // Force style recalculation
+      void body.offsetHeight;
+      console.log('✓ Body class updated:', newClass);
+      console.log('✓ Current body classes:', body.className);
+    } else {
+      console.warn('⚠ No matching template class for slug:', slug);
+    }
+  }
+
+  // Listen for route changes and reapply header styles
+  function setupRouteChangeListener() {
+    console.log('🔧 Setting up SPA navigation with header sync...');
+    
+    // Store the target page slug when a link is clicked
+    let targetSlug = null;
+    let contentChangeDetected = false;
+    
+    // Capture clicks on navigation links BEFORE the router processes them
+    document.addEventListener('click', function(e) {
+      console.log('👁 Click detected on:', e.target);
+      const link = e.target.closest('[data-navigo]');
+      console.log('🔗 Closest data-navigo link:', link);
+      
+      if (link) {
+        const slug = link.getAttribute('data-slug');
+        const href = link.getAttribute('href');
+        console.log('🎯 Navigation link found - slug:', slug, 'href:', href);
+        
+        if (slug) {
+          targetSlug = slug;
+          contentChangeDetected = false;
+          console.log('✅ Target page set:', targetSlug);
+        } else {
+          console.warn('⚠ Link has no data-slug attribute');
+        }
+      }
+    }, true); // Use capture phase to run before router
+
+    // Watch for DOM changes to detect when new content loads
+    let debounceTimer = null;
+    const observer = new MutationObserver(function(mutations) {
+      console.log('📡 MutationObserver triggered, mutations:', mutations.length);
+      
+      // Only process if we have a target slug and haven't already updated
+      if (!targetSlug) {
+        console.log('⏸ No target slug set, skipping...');
+        return;
+      }
+      if (contentChangeDetected) {
+        console.log('⏸ Content already detected, skipping...');
+        return;
+      }
+      
+      // Debounce to avoid multiple triggers
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        console.log('🔍 DOM changed, checking if content loaded for:', targetSlug);
+        
+        // Verify content has actually changed by checking for page-specific elements
+        let contentLoaded = false;
+        
+        if (targetSlug === 'contact') {
+          contentLoaded = document.querySelector('.box--staff') || 
+                         document.querySelector('.box--address') ||
+                         document.body.textContent.includes('Loading staff');
+        } else if (targetSlug === 'about') {
+          contentLoaded = document.querySelector('.box--about') ||
+                         document.body.textContent.includes('Loading about');
+        } else if (targetSlug === 'works') {
+          contentLoaded = document.querySelector('.list--works') || 
+                         document.querySelector('.bloc-projects-listing');
+        } else if (targetSlug === 'homepage') {
+          contentLoaded = document.querySelector('.bloc-slider');
+        }
+        
+        if (contentLoaded) {
+          console.log('✓ Content loaded for:', targetSlug);
+          console.log('🔄 Updating body class and header styles...');
+          
+          updateBodyClass(targetSlug);
+          if (headerConfig) {
+            applyHeaderStyles();
+          }
+          
+          // Trigger page-specific content loading
+          console.log('📦 Triggering content loader for:', targetSlug);
+          
+          if (targetSlug === 'contact') {
+            console.log('✅ Calling loadContactContent()');
+            window.loadContactContent();
+          } else if (targetSlug === 'about') {
+            if (typeof window.loadAboutContent === 'function') {
+              console.log('✅ Calling loadAboutContent()');
+              window.loadAboutContent();
+            } else {
+              console.warn('⚠ loadAboutContent not defined yet');
+            }
+          } else if (targetSlug === 'works') {
+            if (typeof window.loadProjects === 'function') {
+              console.log('✅ Calling loadProjects()');
+              window.loadProjects();
+            } else {
+              console.warn('⚠ loadProjects not defined yet');
+            }
+          } else if (targetSlug === 'homepage') {
+            if (typeof window.loadIndexProjects === 'function') {
+              console.log('✅ Calling loadIndexProjects()');
+              window.loadIndexProjects();
+            } else {
+              console.warn('⚠ loadIndexProjects not defined yet');
+            }
+          }
+          
+          contentChangeDetected = true;
+          
+          // Reset after a delay to allow for next navigation
+          setTimeout(() => {
+            targetSlug = null;
+            contentChangeDetected = false;
+          }, 500);
+        }
+      }, 150);
+    });
+    
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    console.log('✓ MutationObserver started');
+
+    // Update body class on initial load
+    console.log('🔍 Detecting initial page on load...');
+    console.log('Current URL:', window.location.pathname);
+    console.log('Current body class:', document.body.className);
+    
+    // Detect initial page from body class or URL
+    let initialSlug = null;
+    if (document.body.classList.contains('template-homepage')) {
+      initialSlug = 'homepage';
+    } else if (document.body.classList.contains('template-projects')) {
+      initialSlug = 'works';
+    } else if (document.body.classList.contains('template-about')) {
+      initialSlug = 'about';
+    } else if (document.body.classList.contains('template-contact')) {
+      initialSlug = 'contact';
+    }
+    
+    if (initialSlug) {
+      console.log('✓ Initial page detected from body class:', initialSlug);
+      // Body class is already correct, just apply header styles
+      if (headerConfig) {
+        console.log('🎨 Applying header styles for initial page...');
+        applyHeaderStyles();
+      }
+    } else {
+      console.log('⚠ No template class found, detecting from URL...');
+      updateBodyClass();
+    }
+    
+    console.log('✓ SPA navigation setup complete');
+  }
+
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadConfig);
+    document.addEventListener('DOMContentLoaded', function() {
+      loadConfig();
+      setupRouteChangeListener();
+    });
   } else {
     loadConfig();
+    setupRouteChangeListener();
   }
 
   // Expose reload function for debugging
