@@ -1,5 +1,5 @@
 {
-  "activePreset": "reversed",
+  "activePreset": "default",
   "description": "Header configuration - switch between different header layouts and logo styles",
   "presets": {
     "default": {
