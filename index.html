@@ -322,146 +322,8 @@
                 <div class="box--home__info">
                   <div class="box--home__info__counter"><span>1</span>/7</div>
 
-                  <ul class="list list--home js-has-cursor-player">
-                    <div
-                      class="cursor-player-animated js-cursor-player-animated"
-                    >
-                      <div
-                        class="mooving-elements players-wrapper is-player"
-                        data-friction="7"
-                      >
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_981846f43f714f73845393b8c1d66a5f/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_91dd4962f3be4c0592b5e1c7ec6f397e/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_4b66a34c69754d2585da905ba36ca85b/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_407b1dbffc774b7ba45d6c4c9cd43896/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_8d2edc77f66e4a18825ff08edc9c549c/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_8d2edc77f66e4a18825ff08edc9c549c/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                        <video
-                          class="js-video player-animated-player"
-                          data-src="https://video.wixstatic.com/video/8c2c22_13c6aa4d9ebb4e6d9e591dcaaa7cb89e/720p/mp4/file.mp4"
-                          playsinline
-                          loop
-                          muted
-                        ></video>
-                      </div>
-                    </div>
-
-  
-
-                    <li class="is-active">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/moving-forward-en"
-                        class="js-change-video"
-                      >
-                        <h2>MOVING FORWARD</h2>
-                        <p>
-                          SHUROOQ - Sharjah Investment and Development Authority
-                        </p>
-                        <p>Corporate / Investment Promotion</p>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/setup-your-business-en"
-                        class="js-change-video"
-                      >
-                        <h2>SETUP YOUR BUSINESS</h2>
-                        <p>Dubai Economy and Tourism</p>
-                        <p>Business Promotion / Government Service</p>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/impossible-to-define-en"
-                        class="js-change-video"
-                      >
-                        <h2>IMPOSSIBLE TO DEFINE</h2>
-                        <p>Dubai Economy and Tourism</p>
-                        <p>Tourism Campaign</p>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/invest-in-sharjah-en"
-                        class="js-change-video"
-                      >
-                        <h2>INVEST IN SHARJAH</h2>
-                        <p>Invest in Sharjah Office</p>
-                        <p>Corporate / Investment Promotion</p>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/the-abu-dhabi-plan-faisal-cutdown-en"
-                        class="js-change-video"
-                      >
-                        <h2>THE ABU DHABI PLAN - FAISAL</h2>
-                        <p>Abu Dhabi Executive Council</p>
-                        <p>Government / Strategic Communication</p>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/the-abu-dhabi-plan-reem-cutdown-en"
-                        class="js-change-video"
-                      >
-                        <h2>THE ABU DHABI PLAN - REEM</h2>
-                        <p>Abu Dhabi Executive Council</p>
-                        <p>Government / Strategic Communication</p>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/the-abu-dhabi-plan-en"
-                        class="js-change-video"
-                      >
-                        <h2>THE ABU DHABI PLAN</h2>
-                        <p>Abu Dhabi Executive Council</p>
-                        <p>Government / Strategic Communication</p>
-                      </a>
-                    </li>
+                  <ul class="list list--home js-has-cursor-player" id="homepage-slider">
+                    <!-- Cursor player videos and list items will be dynamically loaded from project.json -->
                   </ul>
                   <div class="box--home__timeline">
                     <span class="is-animated"></span>
@@ -592,9 +454,87 @@
           const response = await fetch('data/project.json');
           const data = await response.json();
           renderIndexProjects(data.projects);
+          renderHomepageSlider(data.projects);
         } catch (error) {
           console.error('Error loading projects:', error);
         }
+      }
+
+      // Render homepage slider from project data
+      function renderHomepageSlider(projects) {
+        console.log('Rendering homepage slider...');
+        const sliderContainer = document.getElementById('homepage-slider');
+        
+        if (!sliderContainer) {
+          console.log('Homepage slider container not found');
+          return;
+        }
+
+        // Create cursor player videos wrapper
+        let cursorPlayerHTML = `
+          <div class="cursor-player-animated js-cursor-player-animated">
+            <div class="mooving-elements players-wrapper is-player" data-friction="7">
+        `;
+        
+        projects.forEach(project => {
+          cursorPlayerHTML += `
+              <video
+                class="js-video player-animated-player"
+                data-src="${project.video_url}"
+                playsinline
+                loop
+                muted
+              ></video>
+          `;
+        });
+        
+        cursorPlayerHTML += `
+            </div>
+          </div>
+        `;
+
+        // Create list items
+        let listItemsHTML = '';
+        projects.forEach((project, index) => {
+          listItemsHTML += `
+            <li class="${index === 0 ? 'is-active' : ''}">
+              <a href="javascript:void(0)" class="js-change-video" onclick="window.location.replace('${project.link}'); return false;">
+                <h2>${project.title}</h2>
+                <p>${project.client}</p>
+                <p>${project.category}</p>
+              </a>
+            </li>
+          `;
+        });
+
+        // Combine and insert into container
+        sliderContainer.innerHTML = cursorPlayerHTML + listItemsHTML;
+        
+        console.log('Homepage slider rendered with', projects.length, 'projects');
+        
+        // Trigger lazy loading for videos after DOM update
+        setTimeout(() => {
+          // Initialize lazy loading if available
+          if (typeof LazyLoad !== 'undefined' && window.lazyLoadInstance) {
+            window.lazyLoadInstance.update();
+            console.log('✓ Lazy loading updated for homepage slider');
+          }
+          
+          // Load videos with data-src attribute
+          const videos = sliderContainer.querySelectorAll('video[data-src]');
+          videos.forEach(video => {
+            if (video.dataset.src && !video.src) {
+              video.src = video.dataset.src;
+              video.load();
+            }
+          });
+          console.log('✓ Loaded', videos.length, 'cursor player videos');
+          
+          // Re-initialize cursor player if there's a function for it
+          if (typeof initCursorPlayer === 'function') {
+            initCursorPlayer();
+          }
+        }, 100);
       }
 
       function renderIndexProjects(projects) {
