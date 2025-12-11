@@ -1103,41 +1103,41 @@
     if (worksContainer) {
       worksContainer.innerHTML = '';
       
-      projects.forEach(project => {
-        const projectHTML = `
-          <li class="box box--work" data-cat="${project.data_cat}">
-            <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
-              <div class="box--work__info">
-                <h2>${project.title}</h2>
-                <p>${project.client}</p>
-                <p>${project.category}</p>
-              </div>
-              <div class="box--work__video video-wrapper has-poster">
-                <img class="video-img-poster lazy-media loaded"
-                  src="${project.poster_image}"
-                  srcset="${project.poster_image_srcset}"
-                  alt="">
-                <video class="js-video lazy-media loaded"
-                  src="${project.video_url}"
-                  playsinline loop muted></video>
-              </div>
-              <div class="cursor-text-animated js-cursor-text-animated">
-                <div class="mooving-elements is-arrow" data-friction="1">
-                  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.72366 3.91174H7.0685L5.14349 3.8482L6.53777 4.99985L8.40882 6.65189L7.19444 7.72412L5.3234 6.07209L4.01007 4.83306L4.07303 6.50892L4.06404 8.02593L2.3819 6.54069L2.39989 2.42649L7.04152 2.42649L8.72366 3.91174Z" fill="white"/>
-                  </svg>
-                </div>
-                <div class="mooving-elements shift cursor-main-text" data-friction="5">
-                  <h2>${project.title}</h2>
-                  <p>${project.client}</p>
-                  <p>${project.category}</p>
-                </div>
-              </div>
-            </a>
-          </li>
-        `;
-        worksContainer.innerHTML += projectHTML;
-      });
+      // projects.forEach(project => {
+      //   const projectHTML = `
+      //     <li class="box box--work" data-cat="${project.data_cat}">
+      //       <a href="${project.link}" class="box--work__link js-has-cursor-text" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='${project.link}'; return false;">
+      //         <div class="box--work__info">
+      //           <h2>${project.title}</h2>
+      //           <p>${project.client}</p>
+      //           <p>${project.category}</p>
+      //         </div>
+      //         <div class="box--work__video video-wrapper has-poster">
+      //           <img class="video-img-poster lazy-media loaded"
+      //             src="${project.poster_image}"
+      //             srcset="${project.poster_image_srcset}"
+      //             alt="">
+      //           <video class="js-video lazy-media loaded"
+      //             src="${project.video_url}"
+      //             playsinline loop muted></video>
+      //         </div>
+      //         <div class="cursor-text-animated js-cursor-text-animated">
+      //           <div class="mooving-elements is-arrow" data-friction="1">
+      //             <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      //               <path d="M8.72366 3.91174H7.0685L5.14349 3.8482L6.53777 4.99985L8.40882 6.65189L7.19444 7.72412L5.3234 6.07209L4.01007 4.83306L4.07303 6.50892L4.06404 8.02593L2.3819 6.54069L2.39989 2.42649L7.04152 2.42649L8.72366 3.91174Z" fill="white"/>
+      //             </svg>
+      //           </div>
+      //           <div class="mooving-elements shift cursor-main-text" data-friction="5">
+      //             <h2>${project.title}</h2>
+      //             <p>${project.client}</p>
+      //             <p>${project.category}</p>
+      //           </div>
+      //         </div>
+      //       </a>
+      //     </li>
+      //   `;
+      //   worksContainer.innerHTML += projectHTML;
+      // });
     }
   }
 
@@ -1162,7 +1162,7 @@
       projects.forEach(project => {
         const projectHTML = `
           <li class="box box--work" data-cat="${project.data_cat}">
-            <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
+            <a href="javascript:void(0)" class="box--work__link js-has-cursor-text" onclick="window.location.replace('${project.link}'); return false;">
               <div class="box--work__info">
                 <h2>${project.title}</h2>
                 <p>${project.client}</p>

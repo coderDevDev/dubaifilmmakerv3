@@ -382,82 +382,7 @@
                       </div>
                     </div>
 
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/live-hd-en"
-                        class="js-change-video"
-                      >
-                        <h2>LIVE HD</h2>
-                        <p>Abu Dhabi Media</p>
-                        <p>Broadcast / Live TV</p>
-                      </a>
-                    </li> -->
-
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/shams-en"
-                        class="js-change-video"
-                      >
-                        <h2>SHAMS</h2>
-                        <p>Sharjah Media City</p>
-                        <p>Corporate / Media</p>
-                      </a>
-                    </li> -->
-
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/keep-the-dreams-alive-tvc03-en7b6fba23b054b/1080p/mp4/file.mp4"
-                        class="js-change-video"
-                      >
-                        <h2>KEEP THE DREAMS ALIVE TVC 03</h2>
-                        <p>Ministry of Interior UAE</p>
-                        <p>Government / Public Awareness TVC</p>
-                      </a>
-                    </li> -->
-
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/keep-the-dreams-alive-tvc02-en"
-                        class="js-change-video"
-                      >
-                        <h2>KEEP THE DREAMS ALIVE TVC 02</h2>
-                        <p>Ministry of Interior UAE</p>
-                        <p>Government / Public Awareness TVC</p>
-                      </a>
-                    </li> -->
-
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/keep-the-dreams-alive-tvc01-en"
-                        class="js-change-video"
-                      >
-                        <h2>KEEP THE DREAMS ALIVE TVC 01</h2>
-                        <p>Ministry of Interior UAE</p>
-                        <p>Government / Public Awareness TVC</p>
-                      </a>
-                    </li> -->
-
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/time-to-care-army-cut-en"
-                        class="js-change-video"
-                      >
-                        <h2>TIME TO CARE: ARMY CUT</h2>
-                        <p>Ministry of Health & Prevention UAE</p>
-                        <p>Health Awareness Campaign</p>
-                      </a>
-                    </li> -->
-
-                    <!-- <li class="">
-                      <a
-                        href="https://www.dubaifilmmaker.ae/time-to-care-main-film-en"
-                        class="js-change-video"
-                      >
-                        <h2>TIME TO CARE: MAIN FILM</h2>
-                        <p>Ministry of Health & Prevention UAE</p>
-                        <p>Health Awareness Campaign</p>
-                      </a>
-                    </li> -->
+  
 
                     <li class="is-active">
                       <a
@@ -684,7 +609,8 @@
         projects.forEach(project => {
           const projectHTML = `
           <li class="box box--work" data-cat="${project.data_cat}">
-            <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
+            <a href="javascript:void(0)" class="box--work__link js-has-cursor-text" 
+            onclick="window.location.replace('${project.link}'); return false;">
               <div class="box--work__info">
                 <h2>${project.title}</h2>
                 <p>${project.client}</p>
@@ -779,43 +705,6 @@
         // Clear existing content first to avoid duplicates
         worksContainer.innerHTML = '';
 
-        projects.forEach(project => {
-          const projectHTML = `
-          <li class="box box--work" data-cat="${project.data_cat}">
-            <a href="${project.link}" data-navigo class="box--work__link js-has-cursor-text">
-              <div class="box--work__info">
-                <h2>${project.title}</h2>
-                <p>${project.client}</p>
-                <p>${project.category}</p>
-              </div>
-              <div class="box--work__video video-wrapper has-poster">
-                <img class="video-img-poster lazy-media loaded"
-                  src="${project.poster_image}"
-                  srcset="${project.poster_image_srcset}"
-                  alt="">
-                <video class="js-video lazy-media loaded"
-                  src="${project.video_url}"
-                  playsinline loop muted></video>
-              </div>
-              <div class="cursor-text-animated js-cursor-text-animated">
-                <div class="mooving-elements is-arrow" data-friction="1">
-                  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.72366 3.91174H7.0685L5.14349 3.8482L6.53777 4.99985L8.40882 6.65189L7.19444 7.72412L5.3234 6.07209L4.01007 4.83306L4.07303 6.50892L4.06404 8.02593L2.3819 6.54069L2.39989 2.42649L7.04152 2.42649L8.72366 3.91174Z" fill="white"/>
-                  </svg>
-                </div>
-                <div class="mooving-elements shift cursor-main-text" data-friction="5">
-                  <h2>${project.title}</h2>
-                  <p>${project.client}</p>
-                  <p>${project.category}</p>
-                </div>
-              </div>
-            </a>
-          </li>
-        `;
-
-          console.log('Adding works project:', project.title);
-          worksContainer.innerHTML += projectHTML;
-        });
       }
 
       // Function to check if we need to load works projects
@@ -833,7 +722,7 @@
 
         if (worksContainer && worksContainer.children.length === 0) {
           console.log('Loading works projects...');
-          loadWorksProjects();
+          // loadWorksProjects();
         } else if (worksContainer) {
           console.log('Works projects already loaded');
         }

@@ -9,7 +9,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760833991/MOVING_FORWARD_erghda.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760833991/MOVING_FORWARD_erghda.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760833991/MOVING_FORWARD_erghda.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_981846f43f714f73845393b8c1d66a5f/720p/mp4/file.mp4",
-      "link": "works/moving-forward.html"
+      "link": "works/project-detail.html#id=1",
+      "credits": [
+        {"role": "Client", "name": "SHUROOQ - Sharjah Investment and Development Authority"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     },
     {
       "id": 2,
@@ -20,7 +26,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760833996/SETUP_YOUR_BUSINESS_t7bbfa.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760833996/SETUP_YOUR_BUSINESS_t7bbfa.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760833996/SETUP_YOUR_BUSINESS_t7bbfa.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_91dd4962f3be4c0592b5e1c7ec6f397e/720p/mp4/file.mp4",
-      "link": "works/setup-your-business.html"
+      "link": "works/project-detail.html#id=2",
+      "credits": [
+        {"role": "Client", "name": "Dubai Economy and Tourism"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     },
     {
       "id": 3,
@@ -31,7 +43,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834192/IMPOSSIBLE_TO_DEFINE_wxopj4.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834192/IMPOSSIBLE_TO_DEFINE_wxopj4.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834192/IMPOSSIBLE_TO_DEFINE_wxopj4.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_4b66a34c69754d2585da905ba36ca85b/720p/mp4/file.mp4",
-      "link": "works/impossible-to-define.html"
+      "link": "works/project-detail.html#id=3",
+      "credits": [
+        {"role": "Client", "name": "Dubai Economy and Tourism"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     },
     {
       "id": 4,
@@ -42,7 +60,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834311/INVEST_IN_SHARJAH_dwp7xf.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834311/INVEST_IN_SHARJAH_dwp7xf.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834311/INVEST_IN_SHARJAH_dwp7xf.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_407b1dbffc774b7ba45d6c4c9cd43896/720p/mp4/file.mp4",
-      "link": "works/invest-in-sharjah.html"
+      "link": "works/project-detail.html#id=4",
+      "credits": [
+        {"role": "Client", "name": "Invest in Sharjah Office"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     },
     {
       "id": 5,
@@ -53,7 +77,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834423/THE_ABU_DHABI_PLAN_-_FAISA_kcjtth.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834423/THE_ABU_DHABI_PLAN_-_FAISA_kcjtth.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834423/THE_ABU_DHABI_PLAN_-_FAISA_kcjtth.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_8d2edc77f66e4a18825ff08edc9c549c/720p/mp4/file.mp4",
-      "link": "works/the-abu-dhabi-plan-faisal.html"
+      "link": "works/project-detail.html#id=5",
+      "credits": [
+        {"role": "Client", "name": "Abu Dhabi Executive Council"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     },
     {
       "id": 6,
@@ -64,7 +94,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834423/THE_ABU_DHABI_PLAN_-_FAISA_kcjtth.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834423/THE_ABU_DHABI_PLAN_-_FAISA_kcjtth.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834423/THE_ABU_DHABI_PLAN_-_FAISA_kcjtth.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_8d2edc77f66e4a18825ff08edc9c549c/720p/mp4/file.mp4",
-      "link": "works/the-abu-dhabi-plan-reem.html"
+      "link": "works/project-detail.html#id=6",
+      "credits": [
+        {"role": "Client", "name": "Abu Dhabi Executive Council"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     },
     {
       "id": 7,
@@ -75,7 +111,13 @@
       "poster_image": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834561/THE_ABU_DHABI_PLAN_rakbuq.png",
       "poster_image_srcset": "https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834561/THE_ABU_DHABI_PLAN_rakbuq.png 300w, https://res.cloudinary.com/dvqsa7ko7/image/upload/v1760834561/THE_ABU_DHABI_PLAN_rakbuq.png 800w",
       "video_url": "https://video.wixstatic.com/video/8c2c22_13c6aa4d9ebb4e6d9e591dcaaa7cb89e/720p/mp4/file.mp4",
-      "link": "works/the-abu-dhabi-plan.html"
+      "link": "works/project-detail.html#id=7",
+      "credits": [
+        {"role": "Client", "name": "Abu Dhabi Executive Council"},
+        {"role": "Production Company", "name": "DubaiFilmMaker"},
+        {"role": "Director", "name": "TBD"},
+        {"role": "Editor", "name": "TBD"}
+      ]
     }
   ],
   "categories": [
